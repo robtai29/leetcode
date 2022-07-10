@@ -1,0 +1,47 @@
+/_
+7.9.22
+https://leetcode.com/problems/number-of-different-integers-in-a-string/
+_/
+
+class Solution {
+int numDifferentIntegers(String w) {
+HashSet<String> s = new HashSet<>();  
+ for (int i = 0, j = 0; j <= w.length(); ++j) {
+if (j < w.length() && Character.isDigit(w.charAt(j)))
+i = j > i && w.charAt(i) == '0' ? i+1 : i;
+else {
+if (i < j) s.add(w.substring(i, j));
+i = j + 1;
+}
+}
+return s.size();
+}
+}
+
+/\*
+class Solution {
+public int numDifferentIntegers(String word) {
+String[] arr = word.replaceAll("[a-z]+", " ").trim().split("\\s+");
+
+        HashSet<String> set = new HashSet<>();
+
+        for (String str : arr){
+            if (str.length() > 0){
+                set.add(str.replaceAll("^0+", ""));
+            }
+
+        }
+
+        return set.size();
+    }
+
+}
+_/
+/_
+class Solution {
+public int numDifferentIntegers(String word) {
+return (int)Arrays.stream(word.replaceAll("[a-z]+", " ").split("\\s+")).filter(s -> s.length() > 0)
+.map(s -> s.replaceAll("^0+", "")).distinct().count();
+}
+}
+\*/

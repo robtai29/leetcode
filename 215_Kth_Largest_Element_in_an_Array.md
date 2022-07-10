@@ -1,7 +1,7 @@
-/**************************************\*\***************************************
+/_
 7.10.22
 https://leetcode.com/problems/kth-largest-element-in-an-array/
-**************************************\*\*\***************************************/
+_/
 
 class Solution {
 public int findKthLargest(int[] nums, int k) {
@@ -13,7 +13,6 @@ PriorityQueue<Integer> minheap = new PriorityQueue<>();
                 minheap.remove();
             }
         }
-
         return minheap.remove();
     }
 
