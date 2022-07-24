@@ -1,0 +1,67 @@
+/*************************************************************
+7.16.22
+https://leetcode.com/problems/leaf-similar-trees/
+**************************************************************/
+
+class Solution {
+    public boolean leafSimilar(TreeNode root1, TreeNode root2) {
+        StringBuilder b1 = new StringBuilder();
+        StringBuilder b2 = new StringBuilder();
+        
+        dfs(root1, b1);
+        dfs(root2, b2);
+        
+        return b1.toString().equals(b2.toString());
+    }
+    
+    private void dfs(TreeNode node, StringBuilder sb){
+        if (node == null){
+            return;
+        }
+        LinkedList<TreeNode> stack = new LinkedList<>();
+        stack.push(node);
+        while (!stack.isEmpty()){
+            TreeNode current = stack.pop();
+            if (current.left == null && current.right == null){
+                sb.append(current.val + " ");
+            }
+            
+            if (current.left != null){
+                stack.push(current.left);
+            }
+            
+            if (current.right != null){
+                stack.push(current.right);
+            }
+            
+        }
+        
+    }
+}
+
+/*
+class Solution {
+    public boolean leafSimilar(TreeNode root1, TreeNode root2) {
+        StringBuilder b1 = new StringBuilder();
+        StringBuilder b2 = new StringBuilder();
+        
+        dfs(root1, b1);
+        dfs(root2, b2);
+        
+        return b1.toString().equals(b2.toString());
+    }
+    
+    private void dfs(TreeNode node, StringBuilder sb){
+        if (node == null){
+            return;
+        }
+        
+        if (node.left == null && node.right == null){
+            sb.append(node.val + " ");
+        }
+        
+        dfs(node.left, sb);
+        dfs(node.right, sb);
+    }
+}
+*/

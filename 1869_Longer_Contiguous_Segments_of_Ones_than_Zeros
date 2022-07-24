@@ -1,0 +1,28 @@
+/*************************************************************
+7.17.22
+https://leetcode.com/problems/longer-contiguous-segments-of-ones-than-zeros/
+**************************************************************/
+class Solution {
+    public boolean checkZeroOnes(String s) {
+        char[] c = s.toCharArray();
+        
+        int max0s = 0, max1s = 0, local_0s= 0, local_1s=0;
+        
+        for (int i = 0; i < c.length; i++){
+            if (c[i] == '0'){
+                local_0s++;
+                max0s = Math.max(max0s, local_0s);
+                local_1s = 0;
+            }else{
+                local_1s++;
+                max1s = Math.max(max1s, local_1s);
+                local_0s = 0;
+                
+            }
+            
+            
+        }
+        
+        return max1s > max0s;
+    }
+}
