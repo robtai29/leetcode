@@ -1,0 +1,32 @@
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        HashMap<String, List<String>> map = new HashMap<>();
+
+        for (String str : strs){
+            String key = getkey(str);
+            List<String> list = map.getOrDefault(key, new LinkedList<String>());
+            list.add(str);
+            map.put(key, list);
+        }
+
+        List<List<String>> res = new LinkedList<>(map.values());
+        return res;
+    }
+
+
+    private String getKey(String str){
+        int[] letters = new int[26];
+
+        for (char ch : str.toCharArray()){
+            letters[ch-'a']++;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 26; i++){
+            while (letters[ch - 'a']-- > 0){
+                sb.append((char)('a' + i));
+            }
+        }
+            return sb.toString();
+    }
+}

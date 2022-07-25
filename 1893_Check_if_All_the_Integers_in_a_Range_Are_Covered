@@ -1,0 +1,24 @@
+/*************************************************************
+7.24.22
+https://leetcode.com/problems/check-if-all-the-integers-in-a-range-are-covered/
+**************************************************************/
+
+
+class Solution {
+    public boolean isCovered(int[][] ranges, int left, int right) {
+        Arrays.sort(ranges, (a, b) -> a[0] - b[0]);
+        
+        for (int[] range : ranges){
+            if (left < range[0]){
+                return false;
+            }
+            
+            left = Math.max(range[1] + 1, left);
+            if (left > right){
+                return true;
+            }
+        }
+        
+        return false;
+    }
+}

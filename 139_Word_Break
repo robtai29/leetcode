@@ -1,0 +1,39 @@
+
+/*************************************************************
+7.23.22
+https://leetcode.com/problems/word-break/
+**************************************************************/
+
+class Solution {
+    public boolean wordBreak(String s, List<String> wordDict) {
+        int maxLen = -1;
+        for (String word : wordDict){
+            maxLen = Math.max(maxLen, word.length());
+        }
+        
+        HashSet<String> set = new HashSet<String>(wordDict);
+        boolean[] visited = new boolean[s.length()];
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(0);
+ 
+        while (!queue.isEmpty()){
+            int current = queue.remove();
+            
+            
+            for(int i = current + 1;  i <= s.length() && (i-current) <= maxLen; i++){
+                if (i < visited.length && visited[i]){
+                    continue;
+                }
+                
+                if (set.contains(s.substring(current, i))){
+                    if (i == s.length()){
+                        return true;
+                    }
+                    queue.add(i);
+                    visited[i] = true;
+                }
+            }
+        }
+        return false;
+    }
+}
