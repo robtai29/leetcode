@@ -1,0 +1,29 @@
+/*************************************************************
+7.30.22
+https://leetcode.com/problems/next-greater-element-i/
+**************************************************************/
+
+class Solution {
+    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        LinkedList<Integer> stack = new LinkedList<>();
+        
+        for (int num : nums2){
+            while (!stack.isEmpty() && stack.peekLast() < num){
+                   int top = stack.removeLast();
+                    map.put(top, num);
+            }
+                stack.addLast(num);
+            
+        }
+        
+        int[] res = new int[nums1.length];
+        
+        for (int i = 0; i < res.length; i++){
+            res[i] = map.getOrDefault(nums1[i], -1);
+        }
+        
+        return res;
+        
+    }
+}

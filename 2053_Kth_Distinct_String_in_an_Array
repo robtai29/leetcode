@@ -25,3 +25,19 @@ class Solution {
         
     }
 }
+/*
+class Solution {
+    public String kthDistinct(String[] arr, int k) {
+        LinkedHashMap<String, Boolean> map = new LinkedHashMap<>();
+        Arrays.stream(arr).forEach(str -> map.put(str, !map.containsKey(str)));
+        
+        for (String str : map.keySet()){
+            if (map.get(str) == true && --k == 0){
+                return str;
+            }
+        }
+        
+        return "";
+    }
+}
+*/

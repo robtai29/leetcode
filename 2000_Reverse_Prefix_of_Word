@@ -1,0 +1,27 @@
+/*************************************************************
+7.31.22
+https://leetcode.com/problems/reverse-prefix-of-word/
+**************************************************************/
+
+class Solution {
+    public String reversePrefix(String word, char ch) {
+        StringBuilder sb = new StringBuilder();
+        
+        int index = word.indexOf(ch);
+        if (index == -1){
+            return word;
+        }
+        
+        for (int i = index; i >= 0; i--){
+            sb.append(word.charAt(i));
+        }
+        
+        for (int j = index +1; j < word.length(); j++){
+            sb.append(word.charAt(j));
+            
+        }
+        
+        return sb.toString();
+        
+    }
+}

@@ -1,0 +1,14 @@
+
+/*************************************************************
+7.31.22
+https://leetcode.com/problems/to-lower-case/
+**************************************************************/
+
+class Solution {
+    public String toLowerCase(String s) {
+        char[] arr = s.toCharArray();
+        
+        IntStream.range(0, arr.length).filter(i -> 'A' <= arr[i] && 'Z' >= arr[i]).forEach(i -> arr[i] = (char) (arr[i] + 32));
+        return new String(arr);
+    }
+}

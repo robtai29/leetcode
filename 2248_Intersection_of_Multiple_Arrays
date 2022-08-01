@@ -1,0 +1,15 @@
+
+/*************************************************************
+7.29.22
+https://leetcode.com/problems/intersection-of-multiple-arrays/
+**************************************************************/
+
+
+class Solution {
+    public List<Integer> intersection(int[][] nums) {
+        int[] count = new int[1_001];
+        Arrays.stream(nums).forEach(arr -> Arrays.stream(arr).forEach(num -> count[num]++));
+        
+        return IntStream.range(0, count.length).filter(n -> count[n] == nums.length).boxed().collect(Collectors.toList());
+    }
+}
