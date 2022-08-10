@@ -1,0 +1,28 @@
+
+/*************************************************************
+8.9.22
+https://leetcode.com/problems/squares-of-a-sorted-array/
+**************************************************************/
+
+class Solution {
+    public int[] sortedSquares(int[] nums) {
+        int[] res = new int[nums.length];
+        
+        int left = 0, right = nums.length -1;
+        int index = nums.length -1;
+        
+        while (left <= right && index >= 0){
+            if (Math.abs(nums[left]) < Math.abs(nums[right])){
+                res[index] = nums[right] * nums[right] ;
+                right--;
+            }else{
+                res[index] = nums[left] * nums[left];
+                left++;
+            }
+                index--;
+        }
+        
+        return res;
+        
+    }
+}
