@@ -1,0 +1,37 @@
+
+/*************************************************************
+8.12.22
+https://leetcode.com/problems/binary-tree-right-side-view/
+**************************************************************/
+
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> res = new LinkedList<>();
+        if (root == null){
+            return res;
+        }
+        
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        
+        while (!queue.isEmpty()){
+            int size = queue.size();
+            for (int i = 0; i < size; i++){
+                TreeNode current = queue.poll();
+                if (current.left != null){
+                    queue.offer(current.left);
+                }
+                
+                if (current.right != null){
+                    queue.offer(current.right);
+                }
+                
+                if (i == size -1){
+                    res.add(current.val);
+                }
+            }
+        }
+        
+        return res;
+    }
+}
