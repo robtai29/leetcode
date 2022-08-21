@@ -1,0 +1,21 @@
+class Solution {
+   
+/*************************************************************
+8.21.22
+https://leetcode.com/problems/check-if-every-row-and-column-contains-all-numbers/
+**************************************************************/
+
+    public boolean checkValid(int[][] matrix) {
+        for (int r = 0; r < matrix.length; r++){
+            HashSet<Integer> row = new HashSet<>();
+            HashSet<Integer> col = new HashSet<>();
+            
+            for (int c = 0; c < matrix[r].length; c++){
+                if (!row.add(matrix[r][c]) || !col.add(matrix[c][r])){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+}
