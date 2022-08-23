@@ -1,0 +1,26 @@
+
+/*************************************************************
+8.22.22
+https://leetcode.com/problems/binary-tree-tilt/
+**************************************************************/
+
+class Solution {
+    public int findTilt(TreeNode root) {
+        int[] res = new int[1];
+        postOrder(root, res);
+        return res[0];  
+    }
+    
+    private int postOrder(TreeNode node, int[] res){
+        if (node == null){
+            return 0;
+        }
+        
+        int lSum = postOrder(node.left, res);
+        int rSum = postOrder(node.right, res);
+        
+        res[0] += Math.abs(lSum - rSum);
+        
+        return node.val + lSum + rSum;
+    }
+}
