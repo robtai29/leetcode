@@ -1,0 +1,39 @@
+/*************************************************************
+8.26.22
+https://leetcode.com/problems/course-schedule/
+**************************************************************/
+
+class Solution {
+    public boolean canFinish(int nums, int[][] prereqs) {
+        int[] indegrees = new int[nums];
+        List<List<Integer>> adjList = new ArrayList<>();
+        
+        for (int i = 0; i < nums; i++){
+            adjList.add(new ArrayList<>());
+        }
+        
+        for (int[] pair : prereqs){
+            indegrees[pair[0]]++;
+            adjList.get(pair[1]).add(pair[0]);
+        }
+        
+        Queue<Integer> queue = new LinkedList<>();
+        for (int i = 0; i < nums; i++){
+            if (indegrees[i] == 0){
+                queue.offer(i);
+            }
+        }
+        
+        int count = 0;
+        while (!queue.isEmpty()){
+            int vertex = queue.poll();
+            count++;
+            for (int neighbor : adjList.get(vertex)){
+                if (--indegrees[neighbor] == 0){
+                    queue.offer(neighbor);
+                }
+            }
+        }
+        return count == nums;
+    }
+}
