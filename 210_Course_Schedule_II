@@ -1,0 +1,45 @@
+/*************************************************************
+8.26.22
+https://leetcode.com/problems/course-schedule-ii/
+**************************************************************/
+
+class Solution {
+    public int[] findOrder(int num, int[][] prereqs) {
+        int[] indegrees = new int[num];
+        
+        List<List<Integer>> adjList = new ArrayList<>();
+        
+        for (int i = 0; i < num; i++){
+            adjList.add(new LinkedList<>());
+        }
+        
+        for (int[] pair : prereqs){
+            adjList.get(pair[1]).add(pair[0]);
+            indegrees[pair[0]]++;
+        }
+        
+        int[] res = new int[num];
+        
+        Queue<Integer> queue = new LinkedList<>();
+        for (int i = 0; i < num; i++){
+            if (indegrees[i] == 0){
+                queue.offer(i);
+            }
+        }
+        
+        int index = 0;
+        while (!queue.isEmpty()){
+            int vertex = queue.poll();
+            res[index++] = vertex;
+            
+            for (int neighbor: adjList.get(vertex)){
+                if (--indegrees[neighbor] == 0){
+                    queue.offer(neighbor);
+                }
+            }
+        }
+        
+        return index == num ? res : new int[0];
+        
+    }
+}

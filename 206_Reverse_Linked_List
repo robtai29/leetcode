@@ -1,0 +1,45 @@
+
+/*************************************************************
+8.27.22
+https://leetcode.com/problems/reverse-linked-list/
+**************************************************************/
+
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        if (head == null || head.next == null){
+            return head;
+        }
+        
+        ListNode current = head;
+        ListNode nxt = current.next;
+        current.next = null;
+        
+        while (current != null && nxt != null){
+            ListNode afterNext = nxt.next;
+            nxt.next = current;
+            current = nxt;
+            nxt = afterNext;
+        }
+        
+        head = current;
+        return head;
+        
+    }
+}
+
+/*
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        
+        if (head == null || head.next == null){
+            return head;
+        }
+        
+        ListNode res = reverseList(head.next);
+        head.next.next = head;
+        head.next = null;
+        return res;
+        
+    }
+}
+*/
