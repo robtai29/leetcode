@@ -1,0 +1,113 @@
+/*************************************************************
+9.9.22
+https://leetcode.com/problems/two-sum-iv-input-is-a-bst/
+**************************************
+
+class Solution {
+    private static class TreeIterator{
+        private boolean asc;
+        Deque<TreeNode> stack;
+        public TreeIterator(TreeNode root, boolean asc){
+            stack = new LinkedList<>();
+            
+            this.asc = asc;
+            while (root != null){
+                stack.addFirst(root);
+                root = asc == true ? root.left : root.right;
+            }
+        }
+        
+        public boolean hasNext(){
+            return !stack.isEmpty();
+        }
+        
+        public int next(){
+            TreeNode current = stack.removeFirst();
+            int val = current.val;
+            current = asc == true ? current.right : current.left;
+            while (current != null){
+                stack.addFirst(current);
+                current = asc == true ? current.left : current.right;
+            }
+            return val;
+        }
+        
+    }
+        
+    
+    public boolean findTarget(TreeNode root, int k) {
+        TreeIterator left = new TreeIterator(root, true);
+        TreeIterator right = new TreeIterator(root, false);
+        int leftVal = left.next();
+        int rightVal = right.next();
+        
+        while (leftVal < rightVal){
+            if (leftVal + rightVal == k){
+                return true;
+            }else if (leftVal + rightVal < k){
+                leftVal = left.next();
+            }else{
+                rightVal = right.next();
+            }
+            
+        }
+        
+        return false;
+    }
+}
+
+/*
+class Solution {
+    public boolean findTarget(TreeNode root, int k) {
+        return findTarget(root, k, new HashSet<Integer>());
+    }
+    
+    private boolean findTarget(TreeNode node, int k, HashSet<Integer>set){
+        if (node == null){
+            return false;
+        }
+        
+        if (set.contains(k - node.val)){
+            return true;
+        }
+        
+        set.add(node.val);
+        return findTarget(node.left, k, set) || findTarget(node.right, k, set);
+        
+    }
+    
+    
+}
+*/
+
+/*
+class Solution {
+    public:
+bool findTarget(TreeNode* root, int k) {
+	if(root == nullptr){
+		return false;
+	}
+	return findTarget_helper( root, k , root );        // calling the helper
+}
+// inorder Travesal and searching for k - root->val in the BST 
+bool findTarget_helper(TreeNode* temp, int k, TreeNode* root) {
+	if(temp == nullptr){
+		return false;
+	}
+	if(search( root, k - temp->val,temp)){
+		return true;
+	}
+	return findTarget_helper( temp->left, k , root) || findTarget_helper( temp->right, k , root);        
+}
+//BST search function 
+bool search(TreeNode* root, int k , TreeNode* current){        
+	if(root == nullptr){
+		return false;
+	}
+	if(current != root && root->val == k )  { // avoiding the current node in the search
+		return true;
+	}        
+	return (k < root->val)? search( root->left, k ,current) : search( root->right, k ,current) ;
+}
+};
+*/

@@ -1,0 +1,79 @@
+/*************************************************************
+9.3.22
+https://leetcode.com/problems/intersection-of-two-arrays/
+**************************************************************/
+class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        
+        ArrayList<Integer> res = new ArrayList<>();
+        int i = 0;
+        int j = 0;
+        
+        while (i < nums1.length && j < nums2.length){
+            if (nums1[i] > nums2[j]){
+                j++;
+            }else if (nums1[i] < nums2[j]){
+                i++;
+            }else{
+                int num = nums1[i];
+                if (res.size() == 0 || res.get(res.size() -1) < num){
+                    res.add(num);
+                }
+                i++;
+                j++;
+                
+            }
+        }
+        
+        return res.stream().mapToInt(Integer::intValue).toArray();
+        
+    }
+}
+/*
+class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+        HashSet<Integer> set = new HashSet<>();
+        Arrays.sort(nums2);
+        
+        for (int num : nums1){
+            if (binarySearch(nums2, num)){
+                set.add(num);
+            }
+        }
+        
+        return set.stream().mapToInt(Integer::intValue).toArray();
+        
+    }
+    
+    public boolean binarySearch(int[] nums, int target){
+        int left = 0;
+        int right = nums.length -1;
+        
+        while (left <= right){
+            int mid = left + (right - left) / 2;
+            if (nums[mid] == target){
+                return true;
+            }else if (nums[mid] < target){
+                left = mid + 1;
+            }else{
+                right = mid - 1;
+            }
+        }
+        return false;
+    }
+}
+*/
+
+/*
+class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+       Set<Integer> set = Arrays.stream(nums1).boxed().collect(Collectors.toSet());
+    
+        return Arrays.stream(nums2).filter(num -> set.remove(num)).toArray();
+        
+    }
+
+}
+*/

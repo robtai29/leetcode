@@ -1,0 +1,18 @@
+/*************************************************************
+9.10.22
+https://leetcode.com/problems/maximum-number-of-words-found-in-sentences/
+**************************************************************/
+
+class Solution {
+    public int mostWordsFound(String[] sentences) {
+        return Stream.of(sentences).mapToInt(s -> (int)s.chars().filter(ch -> ch == ' ').count() + 1).max().getAsInt();
+    }
+}
+
+/*
+class Solution {
+    public int mostWordsFound(String[] sentences) {
+        return Stream.of(sentences).mapToInt(s -> s.split("\\s+").length).max().getAsInt();
+    }
+}
+*/
