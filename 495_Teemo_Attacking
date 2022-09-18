@@ -1,0 +1,31 @@
+/*************************************************************
+9.18.22
+https://leetcode.com/problems/teemo-attacking/
+**************************************************************/
+
+class Solution {
+    public int findPoisonedDuration(int[] timeSeries, int duration) {
+        if (timeSeries == null || timeSeries.length == 0 || duration <= 0){
+            return 0;
+        }
+        
+        int sum = 0, start = timeSeries[0], end = start + duration;
+        
+        for (int i = 1; i < timeSeries.length; i++){
+            if (timeSeries[i] > end){
+                sum += end - start;
+
+            }else{
+                sum += timeSeries[i] - start;
+            }
+            
+                start = timeSeries[i];
+                end = timeSeries[i] + duration;
+        }
+        
+        sum += end - start;
+        
+        return sum;
+        
+    }
+}

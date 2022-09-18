@@ -1,0 +1,24 @@
+/*************************************************************
+9.18.22
+https://leetcode.com/problems/second-largest-digit-in-a-string/
+**************************************************************/
+
+class Solution {
+    public int secondHighest(String s) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        
+        for (char ch : s.toCharArray()){
+            if (Character.isDigit(ch) && !pq.contains(ch - '0')){
+                pq.offer(ch - '0');
+            }
+            
+            if (pq.size() > 2){
+                pq.poll();
+            }
+            
+            
+        }
+        
+        return pq.size() < 2 ? -1 : pq.poll(); 
+    }
+}

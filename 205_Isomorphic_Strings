@@ -1,0 +1,30 @@
+
+/*************************************************************
+9.18.22
+https://leetcode.com/problems/isomorphic-strings/
+**************************************************************/
+
+class Solution {
+    public boolean isIsomorphic(String s, String t) {
+        return transform(s).equals(transform(t));
+    }
+    
+    
+    private String transform(String str){
+        StringBuilder sb = new StringBuilder();
+        
+        HashMap<Character, Integer> map = new HashMap<>();
+        int occuranceOrder = 0;
+        
+        for (char ch : str.toCharArray()){
+            if (map.get(ch) == null){
+                map.put(ch, occuranceOrder++);
+            }
+            
+                sb.append(map.get(ch));
+                sb.append(" ");
+            }
+        
+            return sb.toString();
+        }
+}
