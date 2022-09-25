@@ -1,0 +1,46 @@
+    
+/*************************************************************
+9.20.22
+https://leetcode.com/problems/word-pattern/
+**************************************************************/
+
+class Solution {
+    public boolean wordPattern(String pattern, String s) {
+        if (pattern == null || pattern.length() == 0){
+            return false;
+        }
+        
+        String[] arr = s.split("\\s+");
+        if (arr.length != pattern.length()){
+            return false;
+        }
+        
+        HashMap<String, Character> map1 = new HashMap<>();
+        HashMap<Character, String> map2 = new HashMap<>();
+        
+        for (int i = 0; i < arr.length; i++){
+            char ch = pattern.charAt(i);
+            String str = arr[i];
+            
+            //case 1
+            //checks one letter maps to differnt strings
+            if (map2.containsKey(ch) && !map2.get(ch).equals(str)){
+                return false;
+            }
+            
+            //case 2
+            if (map1.containsKey(str) && !map1.get(str).equals(ch)){
+                return false;
+            }
+            
+            map2.put(ch, str);
+            map1.put(str, ch);
+            
+            
+        }
+        
+        
+        return true;
+        
+    }
+}
