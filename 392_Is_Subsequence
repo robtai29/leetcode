@@ -1,0 +1,20 @@
+/*************************************************************
+9.25.22
+https://leetcode.com/problems/is-subsequence/
+**************************************************************/
+
+class Solution {
+    public boolean isSubsequence(String s, String t) {
+        int i = 0, j = 0;
+        
+        for (; i < s.length() && j < t.length(); j++){
+            char target = s.charAt(i);
+            
+            if (t.charAt(j) == target){
+                i++;
+            }
+        }
+        
+        return i == s.length();
+    }
+}
