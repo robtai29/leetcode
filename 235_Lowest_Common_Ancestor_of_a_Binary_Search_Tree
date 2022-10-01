@@ -1,0 +1,27 @@
+    
+/*************************************************************
+10.1.22
+https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
+**************************************************************/
+    
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        TreeNode max = p;
+        TreeNode min = q;
+        
+        if (min.val > max.val){
+            TreeNode temp = min;
+            min = max;
+            max = temp;
+        }
+        
+        while (root.val > max.val || root.val < min.val){
+            if (root.val > max.val){
+                root = root.left;
+            }else{
+                root = root.right;
+            }
+        }
+        return root;
+    }
+}
