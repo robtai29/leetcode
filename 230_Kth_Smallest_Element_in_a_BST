@@ -1,10 +1,12 @@
-class Solution {
     
 /*************************************************************
 7.31.22
 https://leetcode.com/problems/kth-smallest-element-in-a-bst/
 **************************************************************/
     
+    
+class Solution {
+
     public int kthSmallest(TreeNode root, int k) {
         Deque<TreeNode> stack = new LinkedList<TreeNode>();
         

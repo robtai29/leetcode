@@ -1,0 +1,31 @@
+/*************************************************************
+10.8.22
+https://leetcode.com/problems/positions-of-large-groups/
+**************************************************************/
+
+
+class Solution {
+    public List<List<Integer>> largeGroupPositions(String s) {
+        List<List<Integer>> res = new LinkedList<>();
+        for (int start = 0, end = start + 1; end < s.length(); ){
+            if (s.charAt(end) == s.charAt(start)){
+                end++;
+            }else{
+                int num = end - start;
+                if (num >= 3){
+                    res.add(Arrays.asList(start, end-1));   
+                }
+                
+                start = end;
+                end = start + 1;
+            }
+            
+            if (end == s.length() && end - start >= 3){
+                res.add(Arrays.asList(start, end-1));
+            }
+            
+        }
+
+        return res;
+    }
+}

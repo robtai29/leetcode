@@ -1,0 +1,54 @@
+
+/*************************************************************
+10.1.22
+https://leetcode.com/problems/number-of-islands/
+**************************************************************/
+
+
+class Solution {
+    public int numIslands(char[][] grid) {
+        int count = 0;
+        
+        int m = grid.length;
+        int n = grid[0].length;
+        
+        boolean[][] visited= new boolean[m][n];
+        
+        for (int i = 0; i < m; i++){
+            for (int j = 0; j < n; j++){
+                if (grid[i][j] == '1' && visited[i][j] == false){
+                    count++;
+                    visited[i][j] = true;
+                    fill(grid, i, j, visited);
+                }
+            }
+        }
+        
+        return count;
+    }
+    
+    private void fill(char[][] grid, int r, int c, boolean[][] visited){
+        int m = grid.length;
+        int n = grid[0].length;
+        int[][] dirs = new int[][]{{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+        
+        Queue<int[]> queue = new LinkedList<>();
+        queue.offer(new int[]{r, c});
+        while (!queue.isEmpty()){
+            int[] point = queue.poll();
+            int row = point[0];
+            int col = point[1];
+            grid[row][col] = '0';
+            
+            for (int i = 0; i < 4; i++){
+                int newR = row + dirs[i][0];
+                int newC = col + dirs[i][1];
+                
+                if (0 <= newR && newR < m && 0 <= newC && newC < n && grid[newR][newC] == '1' && visited[newR][newC] == false){
+                    queue.offer(new int[]{newR, newC});
+                    visited[newR][newC] = true;
+                }   
+            }   
+        }   
+    }
+}
