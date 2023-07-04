@@ -1,0 +1,21 @@
+/*************************************************************
+7.4.23
+https://leetcode.com/problems/count-the-number-of-vowel-strings-in-range/
+**************************************************************/
+
+class Solution {
+    public boolean findSubarrays(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+        
+        for (int i = 0; i+1 < nums.length; i++){
+            int sum = nums[i] + nums[i+1];
+            if (set.contains(sum)){
+                return true;
+            }
+            
+            set.add(sum);
+        }
+        
+        return false;
+    }
+}
