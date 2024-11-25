@@ -1,0 +1,36 @@
+
+/*************************************************************
+7.15.22
+https://leetcode.com/problems/sort-integers-by-the-number-of-1-bits/
+**************************************************************/
+
+class Solution {
+    public int[] sortByBits(int[] arr) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>(
+        (Integer a, Integer b) -> {
+            int wtA = Integer.bitCount(a);
+            int wtB = Integer.bitCount(b);
+            
+            if (wtA == wtB){
+                return a - b;
+            }
+            
+            return wtA - wtB;
+        });
+        
+        int[] res = new int[arr.length];
+        
+        for (int num : arr){
+            pq.add(num);
+        }
+        
+        int index = 0;
+        
+        while (!pq.isEmpty()){
+            arr[index] = pq.poll();
+            index++;
+        }
+        
+        return arr;
+    }
+}
