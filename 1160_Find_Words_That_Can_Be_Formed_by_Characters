@@ -1,0 +1,59 @@
+/*
+ *  11.29.24
+ *  https://leetcode.com/problems/find-words-that-can-be-formed-by-characters/
+ */
+class Solution {
+    public int countCharacters(String[] words, String chars) {
+        return Arrays.stream(words).mapToInt(word -> canBeCompleted(word, chars)).sum();
+    }
+    
+    private int canBeCompleted(String word, String chars){
+        Map<Character, Integer> map = new HashMap<>();
+        for (char ch : chars.toCharArray()){
+            map.put(ch, map.getOrDefault(ch, 0)+1);
+        }
+        
+        for (char ch : word.toCharArray()){
+            if (map.get(ch) == null || map.get(ch) == 0){
+                return 0;
+            }
+            
+            map.put(ch, map.get(ch) -1);
+        }
+        return word.length();
+    }
+}
+
+// 11.30.24
+/*
+class Solution {
+    public String frequencySort(String s) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        for (char ch : s.toCharArray()){
+            map.put(ch, map.getOrDefault(ch, 0)+1);
+        }
+        
+        PriorityQueue<Character> pq = new PriorityQueue<>(new Comparator<Character>(){
+            public int compare(Character c1, Character c2){
+                int rank1 = map.get(c1);
+                int rank2 = map.get(c2);
+                
+                return Integer.compare(rank2, rank1);
+            }
+        });        
+        pq.addAll(map.keySet());
+
+        StringBuilder sb = new StringBuilder();
+        while (!pq.isEmpty()){
+            char ch = pq.poll();
+            int num = map.get(ch);
+            for (int i = 0; i < num; i++){
+                sb.append(ch);
+            }
+        }
+        
+        return sb.toString();
+    }
+}
+ */
+

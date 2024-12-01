@@ -1,0 +1,35 @@
+/*
+ *  11.29.24
+ *  https://leetcode.com/problems/monotonic-array/
+ */
+class Solution {
+    public boolean isMonotonic(int[] nums) {
+        if (nums == null || nums.length < 2){
+            return true;
+        }
+        
+        boolean asc = true;
+        boolean desc = true;
+        
+        int prev = nums[0];
+        for (int i = 1; i < nums.length; i++){
+            int current = nums[i];
+            
+            if (current > prev){
+                desc = false;
+            }
+            
+            if (current < prev){
+                asc = false;
+            }
+            
+            if (!desc && !asc){
+                return false;
+            }
+            
+            prev = current;
+        }
+        
+        return true;
+    }
+}

@@ -1,0 +1,24 @@
+/*
+ * 11.29.23
+ * https://leetcode.com/problems/unique-email-addresses/
+ */
+class Solution {
+    public int numUniqueEmails(String[] emails) {
+        Set<String> set = new HashSet<>();
+        
+        for (String email : emails){
+            set.add(processEmail(email));
+        }
+        
+        return set.size();
+    }
+    
+    private String processEmail(String email){
+        String[] tokens = email.split("@");
+        String domainName = "@" + tokens[1];
+        int index = tokens[0].indexOf("+");
+        String localName = index == -1 ? tokens[0] : tokens[0].substring(0, index);
+        localName = localName.replace(".", "");
+        return localName + domainName;
+    }
+}

@@ -1,0 +1,56 @@
+/*
+ *  11.29.24
+ *  https://leetcode.com/problems/first-unique-character-in-a-string/
+ */
+
+class Solution {
+    public int firstUniqChar(String s) {
+        int[] arr = new int[256];
+        int n = s.length();
+        Arrays.fill(arr, s.length());
+        
+        for (int i = 0; i < s.length(); i++){
+            int index = s.charAt(i) - 'a';
+            if (arr[index] == n){
+                arr[index] = i;  
+            }else{
+                arr[index] = -1; 
+            }
+        }
+        
+        int res = n;
+        for (int i = 0; i < arr.length; i++){
+            if (arr[i] != -1 && arr[i] != n){
+                res = Math.min(res, arr[i]);
+            }    
+        }
+        return res == n ? -1 : res;
+    }
+}
+
+// 11.29.24
+/*
+class Solution {
+    public int firstUniqChar(String s) {
+        Map<Character, Integer> map = new LinkedHashMap<>();
+        
+        for (int i=0; i<s.length(); i++){
+            char ch = s.charAt(i);
+            if (map.containsKey(ch)){
+                map.put(ch, -1);
+            }else{
+            map.put(ch, i);
+            }
+        }
+        
+        for (Map.Entry<Character, Integer> entry: map.entrySet()){
+            if (entry.getValue() != -1){
+                return entry.getValue();
+            }
+            
+        }
+        
+        return -1;
+    }
+}
+ */

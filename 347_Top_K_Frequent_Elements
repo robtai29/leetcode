@@ -1,0 +1,95 @@
+/*
+ *  11.30.24
+ *  https://leetcode.com/problems/top-k-frequent-elements/
+ */
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int num : nums){
+            map.put(num, map.getOrDefault(num, 0)+1);
+        }
+        
+        //minHeap
+        PriorityQueue<Integer> pq = new PriorityQueue<>(new Comparator<Integer>(){
+            public int compare(Integer num1, Integer num2){
+                return Integer.compare(map.get(num1), map.get(num2));
+            }
+        });
+        
+        for (int num : map.keySet()){
+            pq.offer(num);
+            if (pq.size() > k){
+                pq.poll();
+            }
+            
+        }
+        
+        int[] res = new int[k];
+        int index = 0;
+        while (!pq.isEmpty()){
+            res[index++] = pq.poll();
+        }
+        
+        return res;
+    }
+}
+
+//11.30.24
+/*
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int num : nums){
+            map.put(num, map.getOrDefault(num, 0)+1);
+        }
+        
+        List<Integer> list = new LinkedList(map.keySet());
+        Collections.sort(list, new Comparator<Integer>(){
+            public int compare(Integer num1, Integer num2){
+                return Integer.compare(map.get(num2), map.get(num1));
+            }
+        });
+        
+        int[] res = new int[k];
+        for (int i = 0; i < k; i++){
+            res[i] = list.get(i);
+        }
+        
+        return res;
+    }
+}
+ */
+
+ //bucket sort
+ // 11.30.24
+
+ /*
+ class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int num : nums){
+            map.put(num, map.getOrDefault(num, 0)+1);
+        }
+        
+        List<Integer>[] arr = new List[nums.length+1];
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()){
+            int key = entry.getKey();
+            int val = entry.getValue();
+            if (arr[val] == null){
+                arr[val] = new LinkedList<>();
+            }
+            
+            arr[val].add(key);
+        }
+        
+        List<Integer> res = new ArrayList<>();
+        for (int i=arr.length-1; i>0 && res.size() < k; i--){
+            if (arr[i] != null){
+                res.addAll(arr[i]);
+            }
+        }
+        
+        return res.stream().mapToInt(Integer::valueOf).toArray();
+    }
+}
+  */
