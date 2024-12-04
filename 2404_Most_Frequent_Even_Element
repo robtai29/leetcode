@@ -28,3 +28,25 @@ class Solution {
         return res.isEmpty() ? -1 : res.get(0);
     }
 }
+
+// 11.30.24
+/*
+class Solution {
+    public int mostFrequentEven(int[] nums) {
+        Map < Integer, Integer > map = new HashMap < > ();
+        int res = -1, freq = 0, current = -1;
+
+        for (int num: nums) {
+            if (num % 2 == 0) {
+                map.put(num, map.getOrDefault(num, 0) + 1);
+                if (map.get(num) > freq || (map.get(num) == freq && num < res)) {
+                    freq = map.get(num);
+                    res = num;
+                }
+            }
+        }
+
+        return res;
+    }
+}
+ */

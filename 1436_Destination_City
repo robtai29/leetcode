@@ -1,0 +1,25 @@
+/*
+ *  11.30.24
+ *  https://leetcode.com/problems/destination-city/
+ */
+
+class Solution {
+    public String destCity(List<List<String>> paths) {
+        Set<String> fromSet = new HashSet<>();
+        Set<String> toSet = new HashSet<>();
+        for (List<String> path : paths){
+            String to = path.get(0);
+            String from = path.get(1);
+            fromSet.add(from);
+            toSet.add(to);
+        }
+        
+        for (String from : fromSet){
+            if (!toSet.contains(from)){
+                return from;
+            }
+        }
+        
+        return null;
+    }
+}
