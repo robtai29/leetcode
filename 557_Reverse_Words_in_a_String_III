@@ -1,0 +1,85 @@
+/*
+ *  12.8.24
+ *  https://leetcode.com/problems/reverse-words-in-a-string-iii/
+ */
+
+class Solution {
+    public String reverseWords(String s) {
+        String[] arr = s.trim().split("\\s+");
+        StringBuilder sb = new StringBuilder();
+        StringBuilder res = new StringBuilder();
+        for (String str :  arr){
+            sb.append(str);
+            res.append(sb.reverse().toString());
+            res.append(" ");
+            sb.setLength(0);
+        }
+        
+        res.deleteCharAt(res.length()-1);
+        return res.toString();
+    }
+}
+
+// 12.8.24
+/*
+class Solution {
+    public String reverseWords(String s) {
+        char[] arr = s.toCharArray();
+        int left = 0;
+        while (left < arr.length){
+            int right = s.indexOf(" ", left);
+            if (right == -1){
+                right = arr.length-1;
+            }else{
+                right = right -1;
+            }
+            reverseWord(arr, left, right);
+            left = right +2;
+        }
+        return new String(arr);
+    }
+    
+    private void reverseWord(char[] arr, int start, int end){
+        while (start < end){
+            char temp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = temp;
+            start++;
+            end--;
+        }
+    }
+}
+ */
+
+
+ // 12.8.24
+ /*
+class Solution {
+    public String reverseWords(String s) {
+        int left = 0;
+        int right = 0;
+        int len = s.length();
+        char[] arr = s.toCharArray();
+        
+        for (int i = 0; i <= len; i++){
+            if (i == len || arr[i] == ' '){
+                   right = i;
+                    reverseWord(arr, left, right-1);            
+                    left = right +1;
+            }
+        }
+        
+        return new String(arr);
+    }
+    
+    private void reverseWord(char[] arr, int left, int right){
+        while (left < right){
+            char temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+            left++;
+            right--;
+        }
+    }
+}
+  */

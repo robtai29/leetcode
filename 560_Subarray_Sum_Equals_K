@@ -1,0 +1,28 @@
+/*
+ *  12.7.24
+ *  https://leetcode.com/problems/subarray-sum-equals-k/
+ */
+
+class Solution {
+    public int subarraySum(int[] nums, int k) {
+        //can't use sliding windows because of negative numbers
+        HashMap<Integer, Integer> map = new HashMap<>();
+        //cover the case that entire array is the subarray
+        map.put(0, 1);
+        int prefixSum = 0;
+        int res = 0;
+        
+        for (int num : nums){
+            prefixSum += num;
+            int target = prefixSum -k;
+            if (map.containsKey(target)){
+                res = res + map.get(target);
+            }
+            
+            map.put(prefixSum, map.getOrDefault(prefixSum, 0)+1);
+        }
+        
+        return res;
+        
+    }
+}

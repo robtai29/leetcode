@@ -27,3 +27,38 @@ class Solution {
         return sb.toString();
     }
 }
+
+/*
+class Solution {
+    public boolean backspaceCompare(String s, String t) {
+        StringBuilder sbS = new StringBuilder();
+        StringBuilder sbT = new StringBuilder();
+        
+        for (char ch : s.toCharArray()){
+            if (ch == '#' && !sbS.isEmpty()){
+                sbS.deleteCharAt(sbS.length() -1);
+                continue;
+            }
+            
+            if (ch != '#'){
+            sbS.append(ch);
+            }
+        }
+        
+        for (char ch : t.toCharArray()){
+            if (ch == '#' && !sbT.isEmpty()){
+                sbT.deleteCharAt(sbT.length() -1);
+                continue;
+            }
+            
+            if (ch != '#'){
+            sbT.append(ch);
+            }
+        }
+        
+        
+        return sbT.toString().equals(sbS.toString());
+    }
+}
+*/
+

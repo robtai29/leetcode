@@ -77,3 +77,26 @@ class Solution {
 
 }
 */
+
+
+//  12.7.14
+/*
+class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+        Set<Integer> set = new HashSet<>();
+        for (int num :  nums1){
+            set.add(num);
+        }
+        
+        List<Integer> list = new ArrayList<>();
+        for (int num : nums2){
+            if (set.contains(num)){
+                list.add(num);
+            }
+        }
+        
+        int[] res = list.stream().distinct().mapToInt(num -> num).toArray();
+        return res;
+    }
+}
+ */
