@@ -1,0 +1,31 @@
+/*
+ *  12.15.24
+ *  https://leetcode.com/problems/minimum-index-sum-of-two-lists/
+ */
+
+class Solution {
+    public String[] findRestaurant(String[] list1, String[] list2) {
+        Map<String, Integer> map = new HashMap<>();
+        List<String> res = new LinkedList<>();
+        for (int i = 0; i < list1.length; i++){
+            map.put(list1[i], i);
+        }
+        
+        int global_min = Integer.MAX_VALUE;
+        for (int i = 0; i < list2.length; i++){
+            if (map.containsKey(list2[i])){
+                int leastIndex = map.get(list2[i]) + i;
+                if (global_min > leastIndex){
+                    res.clear();
+                    res.add(list2[i]);
+                }else if (global_min == leastIndex){
+                    res.add(list2[i]);
+                }
+                
+                global_min = Math.min(global_min, leastIndex);
+            }
+        }
+        
+        return res.toArray(new String[0]);
+    }
+}

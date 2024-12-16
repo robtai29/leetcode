@@ -1,0 +1,21 @@
+/*************************************************************
+12.13.24
+https://leetcode.com/problems/rank-transform-of-an-array/
+**************************************************************/
+
+class Solution {
+    public int[] arrayRankTransform(int[] arr) {
+        TreeSet<Integer> tree = new TreeSet<>();
+        for (int num : arr){
+            tree.add(num);
+        }
+        Map<Integer, Integer> map = new HashMap<>();
+        int rank = 1;
+        for (int val : tree){
+            map.put(val, rank);
+            rank++;
+        }
+        
+        return Arrays.stream(arr).boxed().map(num -> map.get(num)).mapToInt(i -> i).toArray();
+    }
+}

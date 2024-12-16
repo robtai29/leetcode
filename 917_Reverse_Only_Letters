@@ -3,8 +3,6 @@
 https://leetcode.com/problems/reverse-only-letters/
 **************************************************************/
 
-
-
 class Solution {
     public String reverseOnlyLetters(String str) {
          char[] s = str.toCharArray();
@@ -33,3 +31,50 @@ class Solution {
         return new String(s);
     }
 }
+
+// 12.15.24
+/*
+class Solution {
+    public String reverseOnlyLetters(String s) {
+        StringBuilder sb = new StringBuilder(s);
+        for (int i = 0, j = s.length()-1; i < j; i++, j--){
+            while (i < j && !Character.isLetter(s.charAt(i))){
+                i++;
+            }
+            while (i < j && !Character.isLetter(s.charAt(j))){
+                j--;
+            }
+            
+            if (i < j){
+                sb.setCharAt(i, s.charAt(j));
+                sb.setCharAt(j, s.charAt(i));
+            }
+            
+        }
+        
+        return sb.toString();
+}
+}
+ */
+
+
+ // 12.15.24
+ /*
+ class Solution {
+    public String reverseOnlyLetters(String s) {
+        StringBuilder sb = new StringBuilder(s);
+        for (int i = 0, j = s.length()-1; i <j;)
+            if (!Character.isLetter(sb.charAt(i))){
+                i++;
+            }else if (!Character.isLetter(sb.charAt(j))){
+                j--;
+            }else{
+                sb.setCharAt(i, s.charAt(j));
+                sb.setCharAt(j, s.charAt(i));
+                i++;
+                j--;
+            }
+            return sb.toString();
+    }
+}
+  */

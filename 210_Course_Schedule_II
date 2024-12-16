@@ -43,3 +43,49 @@ class Solution {
         
     }
 }
+
+
+// 12.13.24
+/*
+class Solution {
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        List<Integer> res = new ArrayList<>();
+        int[] indegrees = new int[numCourses];
+        List<Integer>[] adjList = new List[numCourses];
+        for (int[] pair : prerequisites){
+            int preq = pair[1];
+            int course = pair[0];
+            indegrees[course]++;
+            if (adjList[preq] == null){
+                adjList[preq] = new ArrayList<>();
+            }
+            adjList[preq].add(course);
+        }
+        
+        Queue<Integer> queue = new LinkedList<>();
+        for (int i = 0; i < indegrees.length; i++){
+            if (indegrees[i] == 0){
+                queue.offer(i);
+            }
+        }
+        
+        while(!queue.isEmpty()){
+            int current = queue.poll();
+            res.add(current);
+            
+            if (adjList[current] != null){
+                for (int neighbor: adjList[current]){
+                    indegrees[neighbor]--;
+                    if (indegrees[neighbor] == 0){
+                         queue.offer(neighbor);
+                    }
+                }   
+            }
+            
+        }
+            int[] result = res.stream().mapToInt(num -> num).toArray();
+        return numCourses == res.size() ? result : new int[]{};
+    }
+}
+ */
+ */

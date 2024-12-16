@@ -1,0 +1,61 @@
+/*************************************************************
+12.4.24
+https://leetcode.com/problems/most-common-word/
+**************************************************************/
+
+class Solution {
+    public String mostCommonWord(String paragraph, String[] banned) {
+        Set<String> set = new HashSet<>();
+        for (String word : banned){
+            set.add(word.toLowerCase());
+        }
+        
+        Map<String, Integer> freqMap = new HashMap<>();
+        /*
+            need plus or will get empty value in string array
+            Ex:"Bob. hIt, baLl"
+            ["bob", "hit"]
+        */
+        
+        String[] arr = paragraph.toLowerCase().split("[^A-Za-z]+");  //can use "[ !?',;.]+"
+        for (String word : arr){
+            System.out.println(word);
+        }
+        for (String word : arr){
+            freqMap.put(word, freqMap.getOrDefault(word, 0) + 1);
+        }
+        
+        return Collections.max(freqMap.keySet(), new Comparator<String>(){
+           public int compare(String s1, String s2){
+               int rank1 = set.contains(s1) ? 0 :  freqMap.get(s1);
+               int rank2 = set.contains(s2) ? 0 : freqMap.get(s2);
+               
+               return Integer.compare(rank1, rank2);
+           } 
+        });    
+    }
+}
+
+// 12.14.24
+/*
+https://leetcode.com/problems/most-common-word/discuss/411380/Java-Summary-of-Usages-of-split()-and-replace()-vs.-replaceAll()
+class Solution {
+    public String mostCommonWord(String paragraph, String[] banned) {
+        Map<String, Integer> freqMap = new HashMap<>();
+        String[] arr = paragraph.toLowerCase().split("[^A-Za-z]+");
+        for (String word : arr){
+            freqMap.put(word, freqMap.getOrDefault(word, 0)+1);
+        }
+        for (String word : banned){
+            freqMap.put(word.toLowerCase(), -1);
+        }
+        String res = null;
+        for (String word : freqMap.keySet()){
+            if (res == null || freqMap.get(word) > freqMap.get(res)){
+                res = word;
+            }
+        }
+        return res;
+    }
+}
+*/

@@ -1,0 +1,28 @@
+/*
+ *  12.13.24
+ *  https://leetcode.com/problems/sort-array-by-increasing-frequency/
+ */
+
+class Solution {
+    public int[] frequencySort(int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>();
+        
+        for (int num : nums){
+            map.put(num, map.getOrDefault(num, 0)+1);
+        }
+        
+        List<Integer> res = Arrays.stream(nums).boxed().collect(Collectors.toList());
+        Collections.sort(res, new Comparator<Integer>(){
+            public int compare(Integer i1, Integer i2){
+                int rank1 = map.get(i1);
+                int rank2 = map.get(i2);
+                
+                return rank1 == rank2 ? Integer.compare(i2, i1) : rank1 - rank2;
+            }
+        });
+        
+        return res.stream().mapToInt(i -> i).toArray();
+    }
+}
+
+
