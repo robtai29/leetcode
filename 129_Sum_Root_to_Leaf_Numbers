@@ -1,0 +1,25 @@
+/*************************************************************
+12.21.24
+https://leetcode.com/problems/sum-root-to-leaf-numbers/
+**************************************************************/
+
+class Solution {
+    public int sumNumbers(TreeNode root) {
+        return sumNumbers(root, 0);
+    }
+    
+    private int sumNumbers(TreeNode node, int prev){
+        if (node == null){
+            return 0;
+        }
+        
+        prev = prev * 10 + node.val;
+        boolean isLeaf = node.left == null && node.right == null;
+        
+        if (isLeaf){
+            return prev;
+        }
+        
+        return sumNumbers(node.left, prev) + sumNumbers(node.right, prev);
+    }
+}
