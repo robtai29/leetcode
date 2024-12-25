@@ -1,0 +1,69 @@
+/*************************************************************
+12.21.24
+https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/
+**************************************************************/
+
+class Solution {
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        dfs(root, res, 0);
+        return res;
+    }
+    
+    private void dfs(TreeNode node, List<List<Integer>> res, int level){
+        if (node == null){
+            return;
+        }
+        
+        if (res.size()== level){
+            res.add(new ArrayList<>());
+        }
+        
+        List<Integer> list = res.get(level);
+        
+        if (level % 2 == 0){
+            list.add(node.val);
+        }else{
+            list.add(0, node.val);
+        }
+        dfs(node.left, res, level+1);
+        dfs(node.right, res, level+1);
+    }
+}    
+
+/*
+class Solution {
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List < List < Integer >> res = new ArrayList < > ();
+        if (root == null) {
+            return res;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        int level = 0;  
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            List<Integer> list = new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+                if (level % 2 == 1){
+                list.add(0, node.val);
+                }else{
+                    list.add(node.val);
+                }
+            }
+            res.add(list);
+            level++;
+        }
+        return res;
+    }
+
+}
+ */

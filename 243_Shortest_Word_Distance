@@ -1,0 +1,26 @@
+/*************************************************************
+12.24.24
+https://leetcode.com/problems/shortest-word-distance/
+https://www.lintcode.com/problem/924/
+**************************************************************/
+
+public class Solution {
+    public int shortestDistance(String[] words, String word1, String word2) {
+        int res = Integer.MAX_VALUE;
+        int ptr1 = -1, ptr2 = -1;
+
+        for (int i = 0; i < words.length; i++){
+            if (words[i].equals(word1)){
+                ptr1 = i;
+            }
+            if (words[i].equals(word2)){
+                ptr2 = i;
+            }
+
+            if (ptr1 != -1 && ptr2 != -1){
+                res = Math.min(res, Math.abs(ptr1-ptr2));
+            }
+        }
+            return res;
+    }
+}

@@ -1,0 +1,46 @@
+/*************************************************************
+12.22.24
+https://leetcode.com/problems/add-to-array-form-of-integer/
+**************************************************************/
+
+class Solution {
+    public boolean isCousins(TreeNode root, int x, int y) {
+        boolean seenX = false, seenY = false;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()){
+            int size = queue.size();
+            for (int i = 0; i < size; i++){
+                TreeNode current = queue.poll();
+                    if (current.val == x){
+                        seenX = true;
+                    }else if (current.val == y){
+                        seenY = true;
+                    }
+                    
+                    //check same parent
+                    if (current.left != null && current.right != null){
+                        if ((current.left.val == x && current.right.val == y) || (current.left.val == y && current.right.val == x)){
+                        return false;
+                        }
+                    }
+                
+                    if (current.left != null){
+                        queue.offer(current.left);
+                    }
+                            
+                    if (current.right != null){
+                        queue.offer(current.right);
+                    }
+            }
+            
+                if (seenX && seenY){
+                    return true;
+                }else if (seenX || seenY){
+                    return false;
+                }
+                
+        }
+         return false;
+    }
+    }

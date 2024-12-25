@@ -1,0 +1,30 @@
+/*************************************************************
+12.24.24
+https://leetcode.com/problems/evaluate-reverse-polish-notation/
+**************************************************************/
+
+class Solution {
+    public int evalRPN(String[] tokens) {
+        Deque<Integer> stack = new LinkedList<>();
+        
+        for (String token: tokens){
+            if (token.length() > 1 || Character.isDigit(token.charAt(0))){
+                int num = Integer.parseInt(token);
+                stack.push(num);
+            }else{
+                int second = stack.pop();
+                int first = stack.pop();
+                
+                switch(token){
+                    case "+" -> stack.push(first + second);
+                    case "-" -> stack.push(first - second);
+                    case "*" -> stack.push(first * second);
+                    case "/" -> stack.push(first / second);       
+                }
+            }
+        }
+        
+        return stack.pop();
+        
+    }
+}

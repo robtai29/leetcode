@@ -25,10 +25,6 @@ class Solution {
         }
         Set<Character> vowels = Set.of('a', 'e', 'i', 'o', 'u');
         
-        return vowels.contains(str.charAt(0)) && vowels.contains(str.charAt(str.length() -1));
-        
-        
-        
+        return vowels.contains(str.charAt(0)) && vowels.contains(str.charAt(str.length() -1));   
     }
-    
 }
