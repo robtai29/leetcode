@@ -3,8 +3,6 @@
 9.9.22
 https://leetcode.com/problems/binary-search-tree-iterator/
 **************************************************************/
-
- 
 class BSTIterator {
 
     private Deque<TreeNode> stack;

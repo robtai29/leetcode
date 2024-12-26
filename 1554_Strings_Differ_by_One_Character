@@ -1,0 +1,24 @@
+/*************************************************************
+12.24.24
+https://leetcode.com/problems/strings-differ-by-one-character/
+https://www.lintcode.com/problem/3688/
+**************************************************************/
+
+public class Solution {
+    public boolean differByOne(List<String> words) {
+        Set<String> set = new HashSet<>();
+        for (String word : words){
+            for (int i = 0; i < word.length(); i++){
+                String str = word.substring(0, i) + "$" + word.substring(i+1);
+                if (set.contains(str)){
+                    return true;
+                }
+                set.add(str);
+            }
+
+        }
+        return false;
+    }
+}
+        
+ 

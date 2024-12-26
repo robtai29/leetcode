@@ -1,0 +1,76 @@
+/*************************************************************
+12.25.24
+https://www.lintcode.com/problem/927/
+https://leetcode.com/problems/reverse-words-in-a-string-ii/
+**************************************************************/
+
+public class Solution {
+    public String reverseWords(String str) {
+        char[] arr = str.toCharArray();
+        reverseArr(arr);
+        int left = 0, right = arr.length-1;
+        while (left < arr.length && arr[left] == ' '){
+            left++;
+        }
+        while (right >= 0 && arr[right] == ' '){
+            right--;
+        }
+
+        for (int i = left, j = left; i <= right; i++){
+            if (arr[i] == ' '){
+                reverseWord(arr, i-1, j);
+                j = i+1;
+            }else if (i == right){
+                reverseWord(arr, i, j);
+            }
+        }
+        return new String(arr);
+    }
+
+    private void reverseWord(char[] arr, int right, int left){
+        while (left < right){
+            char temp = arr[right];
+            arr[right] = arr[left];
+            arr[left] = temp;
+            left++;
+            right--;
+        }
+    }
+
+    private void reverseArr(char[] arr){
+        int left = 0, right = arr.length-1;
+        while (left < arr.length && arr[left] == ' '){
+            left++;
+        }
+        while (right >= 0 && arr[right] == ' '){
+            right--;
+        }
+        
+        while (left < right){
+            char temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+            left++;
+            right--;
+        }
+    }
+}
+
+
+// 12.25.24
+/*
+public class Solution {
+    public String reverseWords(String str) {
+        String[] arr = str.trim().split("\\s");
+        int left = 0, right = arr.length-1;
+        while (left < right){
+            String temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+            left++;
+            right--;
+        }
+        return String.join(" ", arr);
+    }
+}
+ */

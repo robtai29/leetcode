@@ -1,0 +1,21 @@
+/*************************************************************
+12.25.24
+https://leetcode.com/problems/valid-word-abbreviation/
+https://www.lintcode.com/problem/637
+**************************************************************/
+
+class Solution {
+    public boolean isSubsequence(String s, String t) {
+        int i = 0, j = 0;
+        
+        for (; i < s.length() && j < t.length(); j++){
+            char target = s.charAt(i);
+            
+            if (t.charAt(j) == target){
+                i++;
+            }
+        }
+        
+        return i == s.length();
+    }
+}

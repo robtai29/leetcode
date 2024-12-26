@@ -1,0 +1,39 @@
+/*************************************************************
+12.24.24
+https://leetcode.com/problems/encode-and-decode-strings/
+https://www.lintcode.com/problem/659/
+**************************************************************/
+public class Solution {
+    /*
+     * @param strs: a list of strings
+     * @return: encodes a list of strings to a single string.
+     */
+    public String encode(List<String> strs) {
+        StringBuilder sb = new StringBuilder();
+        for (String str : strs){
+            sb.append(str.length()).append('$').append(str);
+        }
+
+        return sb.toString();
+    }
+
+    /*
+     * @param str: A string
+     * @return: decodes a single string to a list of strings
+     */
+    public List<String> decode(String str) {
+        List<String> res = new ArrayList<>();
+
+        int index = 0;
+        while (index < str.length()){
+            int i = str.indexOf("$", index);
+            int len = Integer.parseInt(str.substring(index, i));
+            i++;
+            String token = str.substring(i, i+len);
+            res.add(token);
+            index=i+len;
+        }
+
+        return res;
+    }
+}
