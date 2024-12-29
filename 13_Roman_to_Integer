@@ -18,11 +18,8 @@ class Solution {
             if (i + 1 < s.length() && map.get(s.charAt(i+1)) > val){
                 sign = -1;
             }
-            
             res += sign * val;
-            
         }
-        
         return res;
     }
 }
