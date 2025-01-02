@@ -1,0 +1,37 @@
+/*************************************************************
+1.1.25
+https://leetcode.com/problems/find-k-closest-elements/?envType=problem-list-v2&envId=sorting
+**************************************************************/
+
+class Solution {
+    public List<Integer> findClosestElements(int[] arr, int k, int x) {
+        //Java is minheap by default
+        PriorityQueue<Integer> pq = new PriorityQueue(new Comparator<Integer>(){
+            public int compare(Integer a, Integer b){
+                int rankA = Math.abs(a-x);
+                int rankB = Math.abs(b-x);
+
+                if (rankA == rankB){
+                    return Integer.compare(b, a);
+                }else{
+                    return Integer.compare(rankB, rankA);
+                }
+            }
+        });
+
+        for (int num : arr){
+            pq.offer(num);
+            if (pq.size() > k){
+                pq.poll();
+            }
+        }
+
+        List<Integer> list = new LinkedList<>();
+        for (int i = 0;  i < k; i++){
+            list.add(pq.poll());
+        }
+
+        Collections.sort(list);
+        return list;
+    }
+}

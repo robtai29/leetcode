@@ -1,0 +1,35 @@
+/*************************************************************
+12.29.24
+https://leetcode.com/problems/valid-word-abbreviation/
+https://leetcode.com/problems/number-of-segments-in-a-string/
+**************************************************************/
+
+class Solution {
+    public int countSegments(String s) {
+        return (int)Arrays.stream(s.split("\\s+")).filter(str->!str.isEmpty()).count();
+    }
+}
+
+//12 .29.24
+/*
+class Solution {
+    public int countSegments(String s) {
+        if (s == null || s.isEmpty()){
+            return 0;
+        }
+
+        int res = 0;
+
+        for (int i = 1; i < s.length(); i++){
+            if (s.charAt(i) == ' ' && s.charAt(i-1) != ' '){
+                res++;
+            }
+        }
+
+        if (s.charAt(s.length()-1) != ' '){
+            res++;
+        }
+        return res;
+    }
+}
+ */

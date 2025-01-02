@@ -1,0 +1,93 @@
+/*************************************************************
+12.30.24
+https://leetcode.com/problems/relative-ranks/
+**************************************************************/
+
+class Solution {
+    public String[] findRelativeRanks(int[] score) {
+        Map<Integer, String> rankMap = Map.of(1, "Gold Medal", 2, "Silver Medal", 3, "Bronze Medal");
+        TreeMap<Integer, String> map = new TreeMap<>(new Comparator<Integer>(){
+            public int compare(Integer i1, Integer i2){
+                return Integer.compare(i2, i1);
+            }
+        });
+        for (int num : score){
+            map.put(num, "");
+        }
+        int rank = 1;
+        for (int key : map.keySet()){
+            if (rankMap.containsKey(rank)){
+                map.put(key, rankMap.get(rank));
+            }else{
+                map.put(key, String.valueOf(rank));
+            }
+            rank++;
+        }
+
+        String[] res = new String[score.length];
+        for (int i = 0; i < res.length; i++){
+            res[i] = map.get(score[i]);
+        }
+        return res;
+    }
+}
+
+
+// 12.30.24
+/*
+class Solution {
+    public String[] findRelativeRanks(int[] score) {
+        Map<Integer, String> rankMap = Map.of(1, "Gold Medal", 2, "Silver Medal", 3, "Bronze Medal");
+        PriorityQueue<Pair<Integer, Integer>> pq = new PriorityQueue<>(new Comparator<Pair<Integer, Integer>>(){
+            public int compare(Pair<Integer, Integer> p1, Pair<Integer, Integer> p2){
+                return Integer.compare(p2.getValue(), p1.getValue());
+            }
+        });
+
+        for (int i = 0; i < score.length; i++){
+            pq.offer(new Pair(i, score[i]));
+        }
+
+        String[] res = new String[score.length];
+        int rank = 1;
+        while (!pq.isEmpty()){
+            Pair<Integer, Integer> pair = pq.poll();
+            int key = pair.getKey();
+            res[key] = rankMap.containsKey(rank) ? rankMap.get(rank) : String.valueOf(rank);
+            rank++;
+        }
+
+        return res;
+    }
+}
+ */
+
+
+  // 12.30.24
+ /*
+ class Solution {
+    public String[] findRelativeRanks(int[] score) {
+        Map<Integer, String> rankMap = Map.of(1, "Gold Medal", 2, "Silver Medal", 3, "Bronze Medal");
+        int[][] arr = new int[score.length][2];
+        for (int i = 0; i < score.length; i++){
+            arr[i][0] = i;
+            arr[i][1] = score[i];
+        }
+
+        Arrays.sort(arr, new Comparator<int[]>(){
+            public int compare(int[] arr1, int[] arr2){
+                return arr2[1] - arr1[1];
+            }
+        });
+
+        String[] res = new String[score.length];
+        int rank = 1;
+        for (int i = 0; i < arr.length; i++){
+            int key = arr[i][0];
+            res[key] = rankMap.containsKey(rank) ? rankMap.get(rank) : String.valueOf(rank);
+            rank++;
+        }
+        return res;
+    }
+}
+  */

@@ -1,0 +1,56 @@
+/*************************************************************
+1.1.25
+https://leetcode.com/problems/reorganize-string
+**************************************************************/
+
+class Solution {
+    public String reorganizeString(String s) {
+        int[] letters = new int[26];
+        int maxCount = 0;
+        for (char ch : s.toCharArray()){
+            letters[ch - 'a']++;
+            maxCount = Math.max(maxCount, letters[ch - 'a']);
+        }
+
+        if (maxCount > (s.length()+1)/2){
+            return "";
+        }
+
+        int distinctLetters = 0;
+        for (int i = 0; i < 26; i++){
+            if (letters[i] > 0){
+                distinctLetters++;
+            }
+        }
+
+        int[][] arr = new int[distinctLetters][2];
+        int j = 0;
+        for (int i = 0; i < 26; i++){
+            if (letters[i] > 0){
+                arr[j++] = new int[]{i, letters[i]}; 
+            }
+        }
+
+        Arrays.sort(arr, new Comparator<int[]>(){
+            public int compare(int[] a, int[] b){
+                return b[1] - a[1];
+            }
+        });
+        int index = 0;
+        char[] charArray = s.toCharArray();
+        for (int[] pair : arr){
+            int letter = pair[0];
+            int freq = pair[1];
+  
+            while (freq > 0){
+                charArray[index] = (char)('a' + letter);
+                freq--;
+                index= index+2;
+                if (index >= charArray.length){
+                    index=1;
+                }
+            }
+        }
+        return new String(charArray);
+    }
+}

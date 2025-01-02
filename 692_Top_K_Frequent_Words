@@ -1,0 +1,36 @@
+/*************************************************************
+1.1.25
+https://leetcode.com/problems/top-k-frequent-words/description/
+**************************************************************/
+
+class Solution {
+    public List<String> topKFrequent(String[] words, int k) {
+        Map<String, Integer> map = new HashMap<>();
+        for (String word : words){
+            map.put(word, map.getOrDefault(word, 0)+1);
+        }
+
+        PriorityQueue<String> pq = new PriorityQueue<>(new Comparator<String>(){
+            public int compare(String a, String b){
+                int rankA = map.get(a);
+                int rankB = map.get(b);
+
+                if (rankA == rankB){
+                    return b.compareTo(a);
+                }
+                return Integer.compare(rankA, rankB);
+            }
+        });
+        for (String word : map.keySet()){
+            pq.add(word);
+            if (pq.size() > k){
+                pq.poll();
+            }
+        }
+        List<String> res = new LinkedList<>();
+        while (!pq.isEmpty()){
+            res.add(0, pq.poll());
+        }
+        return res;
+    }
+}
