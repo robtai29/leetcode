@@ -1,0 +1,90 @@
+/*************************************************************
+1.2.25
+https://leetcode.com/problems/reformat-the-string/
+**************************************************************/
+
+class Solution {
+    public String reformat(String s) {
+        if (s == null || s.length() == 0){
+            return "";
+        }
+        char[] arr = s.toCharArray();
+        List<Character> letters = new LinkedList<>();
+        List<Character> digits = new LinkedList<>();
+        for (char ch : arr){
+            if (Character.isDigit(ch)){
+                digits.add(ch);
+            }else{
+                letters.add(ch);
+            }
+        }
+
+        if (Math.abs(letters.size()-digits.size())>1){
+            return "";
+        }
+
+        List<Character> list1;
+        List<Character> list2;
+        if (letters.size() > digits.size()){
+            list1 = letters;
+            list2 = digits;
+        }else{
+            list1 = digits;
+            list2 = letters;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < list1.size(); i++){
+            sb.append(list1.get(i));
+            if (i < list2.size()){
+                sb.append(list2.get(i));
+            }
+        }
+        return sb.toString();
+    }
+}
+
+
+// 1.2.25
+/*
+class Solution {
+    public String reformat(String s) {
+        if (s == null || s.length() == 0){
+            return "";
+        }
+        char[] arr = s.toCharArray();
+        List<Character> letters = new LinkedList<>();
+        List<Character> digits = new LinkedList<>();
+        for (char ch : arr){
+            if (Character.isDigit(ch)){
+                digits.add(ch);
+            }else{
+                letters.add(ch);
+            }
+        }
+
+        if (Math.abs(letters.size()-digits.size())>1){
+            return "";
+        }
+
+        List<Character> list1;
+        List<Character> list2;
+        if (letters.size() > digits.size()){
+            list1 = letters;
+            list2 = digits;
+        }else{
+            list1 = digits;
+            list2 = letters;
+        }
+
+        int index = 0;
+        for (int i = 0; i < list1.size(); i++){
+            arr[index++] = list1.get(i);
+            if (i < list2.size()){
+                arr[index++] = list2.get(i);
+            }
+        }
+        return new String(arr);
+    }
+}
+ */
