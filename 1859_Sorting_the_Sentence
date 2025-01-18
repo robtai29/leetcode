@@ -1,0 +1,23 @@
+/*************************************************************
+1.12.25
+https://leetcode.com/problems/sorting-the-sentence/
+*************************************************************/
+
+class Solution {
+    public String sortSentence(String s) {
+        String[] arr = s.trim().split("\\s+");
+        Arrays.sort(arr, new Comparator<String>(){
+            public int compare(String s1, String s2){
+                int rank1 = Integer.valueOf(s1.charAt(s1.length()-1));
+                int rank2 = Integer.valueOf(s2.charAt(s2.length()-1));
+                return Integer.compare(rank1, rank2);
+            }
+        });
+
+        for (int i = 0; i < arr.length; i++){
+            arr[i] = arr[i].substring(0, arr[i].length()-1);
+        }
+
+        return String.join(" ", arr);
+    }
+}

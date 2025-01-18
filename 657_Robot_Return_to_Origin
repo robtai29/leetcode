@@ -2,15 +2,12 @@
 9.18.22
 https://leetcode.com/problems/robot-return-to-origin/
 **************************************************************/
-
-
 class Solution {
     public boolean judgeCircle(String moves) {
         int right = 0;
         int up = 0;
         
-        for (char ch : moves.toCharArray()){
-        
+        for (char ch : moves.toCharArray()){        
             switch(ch){
                 case 'U' : up++; break;
                 case 'D' : up--; break;
@@ -22,3 +19,24 @@ class Solution {
         return right == 0 && up == 0;
     }
 }
+
+//  1.4.25
+/*
+class Solution {
+    public boolean judgeCircle(String moves) {
+        Map<Character, int[]> map = Map.of( 'L', new int[]{-1, 0}, 
+                                            'R', new int[]{1, 0}, 
+                                            'U', new int[]{0, 1}, 
+                                            'D', new int[]{0, -1});
+
+        int x = 0, y = 0;
+        for (char ch : moves.toCharArray()){
+            int[] dirs = map.get(ch);
+            x = x + dirs[0];
+            y = y + dirs[1];
+        }
+        
+        return x == 0 && y == 0;
+    }
+}
+ */

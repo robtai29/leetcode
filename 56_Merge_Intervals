@@ -23,3 +23,35 @@ class Solution {
         return list.toArray(new int[list.size()][]);
     }
 }
+
+
+// 1.11.25
+/*
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        TreeMap<Integer, Integer> map = new TreeMap<>();
+        for (int[] interval : intervals){
+            map.put(interval[0], map.getOrDefault(interval[0], 0)+1);
+            map.put(interval[1], map.getOrDefault(interval[1], 0)-1);
+        }
+
+        List<int[]> res = new LinkedList<>();
+        int count = 0;
+        int start = 0;
+        int end = 0;
+        for (int key : map.keySet()){
+            if (count == 0){
+                start = key;
+            }
+            count += map.get(key);
+
+            if (count == 0){
+                end = key;
+                res.add(new int[]{start, end});
+            }
+        }
+
+        return res.stream().toArray(int[][]::new);
+    }
+}
+ */

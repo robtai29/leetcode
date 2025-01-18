@@ -1,0 +1,24 @@
+/*************************************************************
+1.11.25
+https://leetcode.com/problems/meeting-rooms-ii
+https://www.lintcode.com/problem/919/description
+**************************************************************/
+
+class Solution {
+    public int minMeetingRooms(List<Interval> intervals) {
+        Map<Integer, Integer> map = new TreeMap<>();
+        for (Interval interval : intervals){
+            map.put(interval.start, map.getOrDefault(interval.start, 0)+1);
+            map.put(interval.end, map.getOrDefault(interval.end, 0)-1);
+        }
+
+        int count = 0;
+        int res = 0;
+
+        for (int key : map.keySet()){
+            count += map.get(key);
+            res = Math.max(res, count);
+        }
+        return res;
+    }
+}

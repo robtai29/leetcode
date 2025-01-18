@@ -26,10 +26,44 @@ class Solution {
         for (char ch : s.toCharArray()){
             if (!Character.isDigit(ch)){
                 return false;
-            }         
-            
+            }                
         }
         return true;
     }
-    
 }
+
+
+// 1.12.25
+/*
+class Solution {
+    public boolean areNumbersAscending(String s) {
+        int prev = -1;
+        String[] arr = s.split(" ");
+        for (int i = 0; i < arr.length; i++){
+            int current = getNum(arr[i]);
+            if (current != -1){
+                if (prev >= current){
+                    return false;
+                }
+                prev = current;
+            }
+        }
+
+        return true;
+    }
+
+    private int getNum(String str){
+        char[] arr = str.toCharArray();
+        int num = 0;
+        for (char ch : arr){
+            if (Character.isDigit(ch)){
+                int digit = Integer.valueOf(ch);
+                num = num * 10 + digit;
+            }else{
+                return -1;
+            }
+        }
+        return num;
+    }
+}
+ */

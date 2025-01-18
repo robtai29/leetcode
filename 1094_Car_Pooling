@@ -1,0 +1,24 @@
+/*************************************************************
+1.11.24
+https://leetcode.com/problems/car-pooling/
+**************************************************************/
+
+class Solution {
+    public boolean carPooling(int[][] trips, int capacity) {
+        int[] nums = new int[1001];
+        for (int[] trip : trips){
+            nums[trip[1]] += trip[0];
+            nums[trip[2]] -= trip[0];
+        }
+
+        int numPassengers = 0;
+        for (int i = 0; i < 1001; i++){
+            numPassengers += nums[i];
+            if (numPassengers > capacity){
+                return false;
+            }
+        }
+
+        return true;
+    }
+}

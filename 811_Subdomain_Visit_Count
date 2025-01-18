@@ -1,0 +1,36 @@
+/*************************************************************
+1.12.25
+https://leetcode.com/problems/subdomain-visit-count/
+*************************************************************/
+class Solution {
+    public List<String> subdomainVisits(String[] cpdomains) {
+        Map<String, Integer> map = new HashMap<>();
+        for (String str : cpdomains){
+            String[] arr = str.split(" ");
+            int num = Integer.valueOf(arr[0]);
+            String[] domains = getDomains(arr[1]);
+            for (String domain: domains){
+                map.put(domain, map.getOrDefault(domain, 0)+num);
+            }        
+        }
+
+        List<String> res = new LinkedList<>();
+        for (String key : map.keySet()){
+            String value = String.valueOf(map.get(key));
+            res.add(value + " " + key);
+        }
+        return res;
+    }
+
+    private String[] getDomains(String str){
+        List<String> res = new LinkedList<>();
+        res.add(str);
+        for (int i = 0; i < str.length(); i++){
+            if (str.charAt(i)=='.' && i+1 <str.length()){
+                res.add(str.substring(i+1));
+            }
+        }
+
+        return res.stream().toArray(String[]::new);
+    }
+}

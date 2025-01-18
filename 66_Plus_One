@@ -1,0 +1,26 @@
+/*************************************************************
+1.13.25
+https://leetcode.com/problems/plus-one/
+**************************************************************/
+
+class Solution {
+    public int[] plusOne(int[] digits) {
+        int addition = 1;
+        for (int i = digits.length-1; i >= 0; i--){
+            int digit = digits[i];
+            int sum = digit + addition;
+            digit = sum % 10;
+            addition = sum / 10;
+            digits[i] = digit;
+        }
+
+        if (addition == 1){
+            int[] newArr = new int[digits.length + 1];
+            System.arraycopy(digits, 0, newArr, 1, digits.length);
+            newArr[0] = 1;
+            return newArr;
+        }
+
+        return digits;
+    }
+}

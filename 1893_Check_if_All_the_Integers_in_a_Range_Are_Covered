@@ -3,7 +3,6 @@
 https://leetcode.com/problems/check-if-all-the-integers-in-a-range-are-covered/
 **************************************************************/
 
-
 class Solution {
     public boolean isCovered(int[][] ranges, int left, int right) {
         Arrays.sort(ranges, (a, b) -> a[0] - b[0]);
@@ -22,3 +21,31 @@ class Solution {
         return false;
     }
 }
+
+
+// 1.11.25
+/*
+class Solution {
+    public boolean isCovered(int[][] ranges, int left, int right) {
+        int maxRight = right;
+        for (int[] range : ranges){
+            maxRight = Math.max(maxRight, range[1]);
+        }
+
+        int[] nums = new int[maxRight + 2]; //range = 0 to maxRight+1
+        for (int[] range : ranges){
+            nums[range[0]]++;
+            nums[range[1]+1]--;
+        }
+
+        int intervals = 0;
+        for (int i = 1; i <= right; i++){
+            intervals += nums[i];
+            if (i >= left && intervals == 0){
+                return false;
+            }
+        }
+        return true;
+    }
+}
+ */

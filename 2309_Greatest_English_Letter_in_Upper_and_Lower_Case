@@ -1,0 +1,22 @@
+/*************************************************************
+1.4.25
+https://leetcode.com/problems/greatest-english-letter-in-upper-and-lower-case/
+**************************************************************/
+
+class Solution {
+    public String greatestLetter(String s) {
+        Set<Character> set = new HashSet<>();
+        String res = "";
+        for (char ch : s.toCharArray()){
+            set.add(ch);
+            char complement = (char)(ch^32);
+            if (set.contains(ch) && set.contains(complement)){
+                String str = new String(ch + "").toUpperCase();
+                if (res.length() == 0 || res.compareTo(str) < 0){
+                    res = str;
+                } 
+            }
+        }
+        return res;
+    }
+}
