@@ -28,3 +28,33 @@ PriorityQueue<int[]> maxheap = new PriorityQueue<>((a, b) ->
     }
 
 }
+
+// 1.26.25
+/*
+class Solution {
+    public int[][] kClosest(int[][] points, int k) {
+        PriorityQueue<int[]> pq = new PriorityQueue<>(new Comparator<int[]>(){
+            public int compare(int[] arr1, int[] arr2){
+                int distance1 = (arr1[0]*arr1[0] + arr1[1]*arr1[1]);
+                int distance2 = (arr2[0]*arr2[0] + arr2[1]*arr2[1]);
+                return Integer.compare(distance2, distance1);
+            }
+        });
+        for (int[] point : points){
+            pq.offer(new int[]{point[0], point[1]});
+            if (pq.size() > k){
+                pq.poll();
+            }
+        }
+
+        int len = pq.size();
+        int[][] res = new int[len][2];
+        int counter = 0;
+        while (!pq.isEmpty()){
+            res[counter++] = pq.poll();
+        }
+
+        return res;
+    }
+}
+ */

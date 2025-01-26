@@ -1,0 +1,51 @@
+/*************************************************************
+1.18.25
+https://leetcode.com/problems/find-nearest-point-that-has-the-same-x-or-y-coordinate/
+**************************************************************/
+
+class Solution {
+    public int nearestValidPoint(int x, int y, int[][] p) {
+        return IntStream.range(0, p.length)
+               .filter(i -> p[i][0] == x || p[i][1] == y)
+               .mapToObj(i -> new int[]{i, Math.abs(x-p[i][0] + Math.abs(y-p[i][1]))})
+               .min(Comparator.comparingInt(arr -> arr[1]))
+               .map(arr -> arr[0])
+               .orElse(-1);
+    }
+}
+
+/*
+class Solution {
+public int nearestValidPoint(int x, int y, int[][] p) {
+        return IntStream.range(0, p.length)
+                .filter(num -> p[num][0] == x || p[num][1] == y)
+                .mapToObj(i -> new int[]{p[i][0], p[i][1], i, Math.abs(x - p[i][0]) + Math.abs(y - p[i][1])})
+                .sorted(Comparator.comparingInt(o -> o[3]))
+                .map(v -> v[2])
+                .findFirst()
+                .orElse(-1);
+    }
+}
+ */
+
+ /*
+  class Solution {
+    public int nearestValidPoint(int x, int y, int[][] points) {
+        int distance = Integer.MAX_VALUE;
+        int res = -1;
+        int index = 0;
+        for (int[] point : points){
+            if (point[0] == x || point[1] == y){
+                int manhatten = Math.abs(point[0]-x) + Math.abs(point[1]-y);
+                if (manhatten < distance){
+                    distance = manhatten;
+                    res = index;
+                }
+            }
+            index++;
+        }
+
+        return res;
+    }
+}
+  */
