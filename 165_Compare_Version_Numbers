@@ -1,0 +1,64 @@
+/***************************************************************
+1.28.25
+https://leetcode.com/problems/compare-version-numbers/
+****************************************************************/
+
+class Solution {
+    public int compareVersion(String version1, String version2) {
+        String[] arr1 = version1.split("\\.");
+        String[] arr2 = version2.split("\\.");
+
+        int i = 0, j = 0;
+        while (i < arr1.length || j < arr2.length){
+            int val1 = i < arr1.length ? Integer.parseInt(arr1[i]) : 0;
+            int val2 = j < arr2.length ? Integer.parseInt(arr2[j]) : 0;
+
+            if (val1 == val2){
+                i++;
+                j++;
+            }else{
+                return Integer.compare(val1, val2);
+            }
+        }
+            return 0;
+    }
+}
+
+// 1.28.25
+/* 
+class Solution {
+    public int compareVersion(String version1, String version2) {
+        String[] arr1 = version1.split("\\.");
+        String[] arr2 = version2.split("\\.");
+
+        int i = 0, j = 0;
+        while (i < arr1.length || j < arr2.length){
+            int val1 = i < arr1.length ? getNum(arr1[i]) : 0;
+            int val2 = j < arr2.length ? getNum(arr2[j]) : 0;
+
+            if (val1 == val2){
+                i++;
+                j++;
+            }else{
+                return Integer.compare(val1, val2);
+            }
+
+        }
+            return 0;
+
+    }
+
+    private int getNum(String version){
+                    System.out.println("veuyyun: " + version);
+
+        int index = 0;
+        while (index < version.length() && version.charAt(index) == '0'){
+            index++;
+        }
+
+        String str = version.substring(index);
+        return str.isEmpty() ? 0 : Integer.parseInt(str);
+    }
+}
+
+*/

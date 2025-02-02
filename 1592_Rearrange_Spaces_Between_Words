@@ -36,3 +36,31 @@ class Solution {
         return sb.toString();
     }
 }
+
+// 1.30.25
+/*
+class Solution {
+    public String reorderSpaces(String text) {
+        int length = text.length();
+        String[] arr = text.trim().split("\\s+");
+        int begin = 0, end = arr.length-1;
+        int wordsLength = Arrays.stream(arr).mapToInt(String::length).sum();
+        int whiteSpaces = length - wordsLength;
+        int gaps = end - begin;
+        if (gaps == 0){
+            return arr[0] + " ".repeat(whiteSpaces);
+        }
+
+        int spacesBetween = whiteSpaces / gaps;
+        int remainder = whiteSpaces % gaps;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i +1 < arr.length; i++){
+            sb.append(arr[i]);
+            sb.append(" ".repeat(spacesBetween));
+        }
+        sb.append(arr[arr.length-1]);
+        sb.append(" ".repeat(remainder));
+        return sb.toString();
+    }   
+}
+ */

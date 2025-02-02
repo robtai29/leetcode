@@ -1,0 +1,20 @@
+/*************************************************************
+1.30.25
+https://leetcode.com/problems/report-spam-message/
+**************************************************************/
+
+class Solution {
+    public boolean reportSpam(String[] message, String[] bannedWords) {
+        Set<String> banned = new HashSet<>(Arrays.asList(bannedWords));
+        int counter = 0;
+        for (String str : message){
+            if (banned.contains(str)){
+                counter++;
+                if (counter == 2){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+}

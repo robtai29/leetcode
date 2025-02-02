@@ -1,0 +1,28 @@
+/*************************************************************
+2.1.25
+https://leetcode.com/problems/combination-sum/
+**************************************************************/
+
+class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> res = new ArrayList<>();
+        Arrays.sort(candidates);
+        backtrack(candidates, res, new ArrayList<Integer>(), 0, target);
+        return res;
+    }
+
+    private void backtrack(int[] nums, List<List<Integer>> res, List<Integer> tempList, int start, int remain){
+        if (remain < 0){
+            return;
+        }
+        if (remain == 0){
+            res.add(new ArrayList<>(tempList));
+            return;
+        }
+        for (int i = start; i < nums.length; i++){
+            tempList.add(nums[i]);
+            backtrack(nums, res, tempList, i, remain-nums[i]);
+            tempList.remove(tempList.size() - 1);
+        }
+    }
+}

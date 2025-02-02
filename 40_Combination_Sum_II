@@ -1,0 +1,33 @@
+/*************************************************************
+2.2.25
+https://leetcode.com/problems/combination-sum-ii/
+**************************************************************/
+
+class Solution {
+public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+   List<List<Integer>> list = new LinkedList<List<Integer>>();
+   Arrays.sort(candidates);
+   backtrack(list, new ArrayList<Integer>(), candidates, target, 0);
+   return list;
+}
+
+private void backtrack(List<List<Integer>> res, List<Integer> tempList, int[] nums, int remain, int start) {
+   if (remain < 0){
+    return;
+   }
+   if (remain == 0){
+      res.add(new ArrayList<>(tempList));
+      return;
+   }
+
+   for (int i = start; i < nums.length; i++){
+        // i-1 are used previously, so this skips duplicates
+        if (i > start && nums[i] == nums[i-1]){
+            continue;
+        }
+        tempList.add(nums[i]);
+        backtrack(res, tempList, nums, remain-nums[i], i+1);
+        tempList.remove(tempList.size()-1);
+   }
+}
+}
