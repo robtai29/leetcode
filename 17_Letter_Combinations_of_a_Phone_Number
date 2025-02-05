@@ -1,0 +1,34 @@
+/*********************************************************************
+2.2.25
+https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+**********************************************************************/
+class Solution {
+    public List<String> letterCombinations(String digits) {
+       if(digits == null || digits.length() == 0) return new ArrayList<String>();
+        List<String> res = new ArrayList<>();
+        Map<Character, String> map= Map.of('2', "abc",
+                                        '3', "def",
+                                        '4', "ghi",
+                                        '5', "jkl",
+                                        '6', "mno",
+                                        '7', "pqrs",
+                                        '8', "tuv",
+                                        '9', "wxyz");
+        backtrack(digits, map, new StringBuilder(), res, 0);                                
+        return res;
+    }
+
+    private void backtrack(String digits, Map<Character, String> map, StringBuilder sb, List<String> res, int pos){
+        if (sb.length() == digits.length()){
+            res.add(sb.toString());
+            return;
+        }
+            char ch = digits.charAt(pos);
+            String str = map.get(ch);
+            for (int i = 0; i < str.length(); i++){
+                sb.append(str.charAt(i));
+                backtrack(digits, map, sb, res, pos+1);
+                sb.deleteCharAt(sb.length()-1);
+            }
+        }
+    }

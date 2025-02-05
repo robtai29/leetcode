@@ -111,3 +111,55 @@ bool search(TreeNode* root, int k , TreeNode* current){
 }
 };
 */
+
+// 2.4.25
+/*
+class BSTIterator {
+    private boolean reverse;
+    private Deque<TreeNode> stack = new LinkedList<>();
+
+    public BSTIterator(TreeNode root, boolean reverse){
+        this.reverse = reverse;
+        pushAll(root);
+    }
+
+    private void pushAll(TreeNode node){
+        while (node != null){
+            stack.offerLast(node);
+            node = !reverse ? node.left : node.right;
+        }
+    }
+
+    public boolean hasNext(){
+        return stack.isEmpty() == false;
+    }
+
+    public int next(){
+        TreeNode current = stack.pollLast();
+        pushAll(!reverse ? current.right : current.left);
+        return current.val;
+    }
+}
+
+
+class Solution {
+    public boolean findTarget(TreeNode root, int k) {
+        BSTIterator left = new BSTIterator(root, false);
+        BSTIterator right = new BSTIterator(root, true);
+        int leftVal = left.next();
+        int rightVal = right.next();
+
+        while (leftVal < rightVal){
+            if (leftVal + rightVal == k){
+                return true;
+            }else if (leftVal + rightVal < k){
+                leftVal = left.next();
+            }else {
+                rightVal = right.next();
+            }
+        }
+
+        return false;
+    }
+}
+ */

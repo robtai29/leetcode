@@ -1,41 +1,29 @@
 
 /*************************************************************
-9.9.22
+9.9.22, 2.2.25
 https://leetcode.com/problems/binary-search-tree-iterator/
 **************************************************************/
 class BSTIterator {
+    Deque<TreeNode> stack = new LinkedList<>();
 
-    private Deque<TreeNode> stack;
-        
     public BSTIterator(TreeNode root) {
-        stack = new LinkedList<>();
-        
-        while (root != null){
-            stack.addFirst(root);
-            root = root.left;
-        }
+        pushAll(root);
     }
     
     public int next() {
-        TreeNode current = stack.removeFirst();
-        int val = current.val;
-        current = current.right;
-        while (current != null){
-            stack.addFirst(current);
-            current = current.left;
-        }
-        
-        return val;
+        TreeNode node = stack.pollLast();
+        pushAll(node.right);
+        return node.val;
     }
     
     public boolean hasNext() {
         return !stack.isEmpty();
     }
-}
 
-/**
- * Your BSTIterator object will be instantiated and called as such:
- * BSTIterator obj = new BSTIterator(root);
- * int param_1 = obj.next();
- * boolean param_2 = obj.hasNext();
- */
+    private void pushAll(TreeNode node){
+        while (node != null){
+            stack.offerLast(node);
+            node = node.left;
+        }
+    }
+}
