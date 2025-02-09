@@ -1,0 +1,47 @@
+/*************************************************************
+2.8.25
+https://leetcode.com/problems/single-threaded-cpu/
+**************************************************************/
+ 
+class Solution {
+    public int[] getOrder(int[][] tasks) {
+            int[][] arr = new int[tasks.length][3];
+            for(int i = 0;i<tasks.length;i++){
+                arr[i] = new int[]{tasks[i][0],tasks[i][1],i};
+            }
+    
+            Arrays.sort(arr, new Comparator<int[]>(){
+                public int compare(int[] arr1, int[] arr2){
+                    return arr1[0] == arr2[0] ? Integer.compare(arr1[1], arr2[1]) : Integer.compare(arr1[0], arr2[0]);
+                }
+            });
+    
+            PriorityQueue<int[]> pq = new PriorityQueue<>(new Comparator<int[]>(){
+                public int compare(int[] arr1, int[] arr2){
+                    return arr1[1] == arr2[1] ? Integer.compare(arr1[2], arr2[2]) : Integer.compare(arr1[1], arr2[1]);
+                }
+            });
+    
+            int[] ans = new int[tasks.length];
+            int index = 0;
+            int t = 0;
+         
+            int i = 0;
+            while(i<arr.length || !pq.isEmpty()){
+                while(i<arr.length && arr[i][0] <= t){
+                    pq.offer(arr[i]);
+                    i++;
+                }
+                if(pq.isEmpty()){
+                    t = arr[i][0];
+                }
+                if(!pq.isEmpty()){
+                    int[] curr = pq.poll();
+                    ans[index] = curr[2];
+                    index++;
+                    t += curr[1];
+                }
+            }
+            return ans;
+        }
+    }

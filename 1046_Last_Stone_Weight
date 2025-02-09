@@ -1,0 +1,21 @@
+/*************************************************************
+2.8.25
+https://leetcode.com/problems/last-stone-weight/
+**************************************************************/
+
+class Solution {
+    public int lastStoneWeight(int[] stones) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Comparator.reverseOrder());
+        for (int stone : stones){
+            pq.offer(stone);
+        }
+
+        int res = 0;
+        while (pq.size() > 1){
+            int num1 = pq.poll();
+            int num2 = pq.poll();
+            pq.offer(num1 == num2 ? 0 : num1-num2);
+        }
+        return pq.poll();
+    }
+}
