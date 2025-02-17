@@ -1,0 +1,26 @@
+/*************************************************************
+2.13.25
+https://leetcode.com/problems/reformat-phone-number
+**************************************************************/
+class Solution {
+    public String reformatNumber(String number) {
+        int digits = (int)number.chars().filter(ch -> Character.isDigit(ch)).count();
+        List<String> res = new LinkedList<>();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < number.length(); i++){
+            char ch = number.charAt(i);
+            if (!Character.isDigit(ch)){
+                continue;
+            }
+            
+            sb.append(ch);
+            digits--;
+            boolean shouldGroupTogether = sb.length() == 3 || (sb.length()==2 && digits == 0) || (sb.length()==2 && digits==2);
+            if (shouldGroupTogether){
+                res.add(sb.toString());
+                sb.setLength(0);
+            }
+        }
+        return String.join("-", res);
+    }
+}

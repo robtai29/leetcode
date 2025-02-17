@@ -1,0 +1,33 @@
+/*************************************************************
+2.13.25
+https://leetcode.com/problems/day-of-the-year/
+**************************************************************/
+
+class Solution {
+    public int dayOfYear(String date) {
+        int year = Integer.parseInt(date.substring(0, 4));
+        int month = Integer.parseInt(date.substring(5, 7));
+        int day = Integer.parseInt(date.substring(8));
+
+        int[] daysArray = new int[]{ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+        boolean isLeap = checkYear(year);
+        int days = 0;
+        for (int i = 1; i < month; i++){
+            days += daysArray[i-1];
+            if (isLeap && i == 2){
+                days++;
+            }
+        }
+        return days + day;
+    }
+
+    private boolean checkYear(int year) {
+        if (year % 400 == 0)
+            return true;
+        if (year % 100 == 0)
+            return false;
+        if (year % 4 == 0)
+            return true;
+        return false;
+    }
+}

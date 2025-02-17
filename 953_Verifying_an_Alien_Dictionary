@@ -1,0 +1,41 @@
+/*************************************************************
+2.13.25
+https://leetcode.com/problems/verifying-an-alien-dictionary/
+**************************************************************/
+
+class Solution {
+    public boolean isAlienSorted(String[] words, String order) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < order.length(); i++){
+            map.put(order.charAt(i), i);
+        }
+
+        for (int i = 1; i < words.length; i++){
+            int compare = compare(words[i], words[i-1], map);
+            if (compare < 0){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private int compare(String s1, String s2, Map<Character, Integer> map){
+        int min = Math.min(s1.length(), s2.length());
+
+        for (int i = 0; i < min; i++){
+            char c1 = s1.charAt(i);
+            char c2 = s2.charAt(i);
+            if (c1 != c2){
+                int val1 = map.get(c1);
+                int val2 = map.get(c2);
+                return Integer.compare(val1, val2);
+            }
+        }
+
+        if (s1.length() == s2.length()){
+            return 0;
+        }
+
+        return s1.length() == min ? -1 : 1;
+    }
+}
