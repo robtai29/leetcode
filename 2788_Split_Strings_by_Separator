@@ -1,0 +1,16 @@
+/*************************************************************
+5.30.25
+https://leetcode.com/problems/split-strings-by-separator/
+**************************************************************/
+
+
+class Solution {
+        public List<String> splitWordsBySeparator(List<String> words, char separator) {
+        return words.stream()
+                    .map(str -> str.split("\\" + separator))
+                    .flatMap(Arrays::stream)
+                    .filter(str -> str.length() > 0)
+                    .toList();
+        }
+
+}

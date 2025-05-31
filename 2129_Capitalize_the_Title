@@ -69,4 +69,43 @@ class Solution {
         return new String(arr);
     }
 }
+
+// 5.31.25
   */
+
+  /*
+  class Solution {
+    public String capitalizeTitle(String title) {
+        List<String> arr = Arrays.stream(title.toLowerCase().split("\\s"))
+                                    .filter(str -> str.length() > 0)
+                                    .map(str -> {
+                                        if (str.length()<3){
+                                            return str;
+                                        }else {
+                                            return str.substring(0, 1).toUpperCase() + str.substring(1);
+                                        }
+                                    })
+                                    .collect(Collectors.toList());
+        return String.join(" ", arr);
+    }
+}
+*/
+
+// 5.31.25
+/*
+class Solution {
+    public String capitalizeTitle(String title) {
+        return Arrays.stream(title.toLowerCase().split("\\s"))
+                                    .filter(str -> str.length() > 0)
+                                    .map(str -> {
+                                        if (str.length()<3){
+                                            return str;
+                                        }else {
+                                            return str.substring(0, 1).toUpperCase() + str.substring(1);
+                                        }
+                                    })
+                                    .collect(Collectors.joining(" "));
+    }
+    
+}
+*/

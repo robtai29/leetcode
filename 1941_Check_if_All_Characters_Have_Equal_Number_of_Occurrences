@@ -1,0 +1,25 @@
+/***************************************************************************************
+5.31.25
+https://leetcode.com/problems/check-if-all-characters-have-equal-number-of-occurrences/description/
+****************************************************************************************/
+
+class Solution {
+    public boolean areOccurrencesEqual(String s) {
+        Map<Character, Integer> map = new HashMap<>();
+        s.chars().mapToObj(ch -> (char)ch)
+                 .forEach(ch -> map.put(ch, map.getOrDefault(ch, 0)+1));
+        return map.values().stream().distinct().count() == 1;
+    }
+}
+
+/*
+class Solution {
+        public List<String> splitWordsBySeparator(List<String> words, char separator) {
+        return words.stream()
+                    .map(str -> str.split("\\" + separator))
+                    .flatMap(arr -> Arrays.stream(arr))
+                    .filter(str -> str.length() > 0)
+                    .toList();
+        }
+}
+ */

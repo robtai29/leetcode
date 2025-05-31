@@ -15,10 +15,27 @@ class Solution {
             if (pq.size() > 2){
                 pq.poll();
             }
-            
-            
         }
-        
         return pq.size() < 2 ? -1 : pq.poll(); 
     }
 }
+
+// 5.31.25
+/* 
+class Solution {
+    public int secondHighest(String s) {
+        TreeSet<Integer> treeSet = new TreeSet<>();
+        for (char ch : s.toCharArray()){
+            if (Character.isDigit(ch)){
+                treeSet.add(ch - '0');
+            }
+        }
+
+        if (treeSet.size()<2){
+            return -1;
+        }
+        treeSet.pollLast();
+        return treeSet.pollLast();
+    }
+}
+*/
