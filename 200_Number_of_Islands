@@ -82,3 +82,91 @@ class Solution {
     }
 }
  */
+
+
+// 6.29.2025 
+/*
+class UnionFind {
+    private int[] parent;
+    private int[] size;
+    private int count;
+
+    public UnionFind(int n) {
+        parent = new int[n];
+        size = new int[n];
+        count = n;
+        for (int i = 0; i < n; i++) {
+            parent[i] = i; 
+            size[i] = 1;   
+        }
+    }
+
+    public int find(int x) {
+        if (parent[x] != x) {
+            parent[x] = find(parent[x]); // Path compression
+        }
+        return parent[x];
+    }
+
+    public void union(int x, int y) {
+        int rootX = find(x);
+        int rootY = find(y);
+
+        if (rootX != rootY) {
+            if (size[rootX] > size[rootY]) {
+                parent[rootY] = rootX;
+                size[rootX] += size[rootY];
+            } else {
+                parent[rootX] = rootY;
+                size[rootY] += size[rootX];
+            }
+            count--;
+        }
+    }
+
+    public int getCount() {
+        return count;    }
+}
+
+class Solution {
+    public int numIslands(char[][] grid) {
+        if (grid == null || grid.length == 0) {
+            return 0;
+        }
+
+        int m = grid.length;
+        int n = grid[0].length; 
+        int numCells = m * n;
+        int zeroes = 0;
+
+        UnionFind uf = new UnionFind(numCells);
+
+        for (int r = 0; r < m; r++) {
+            for (int c = 0; c < n; c++) {
+                if (grid[r][c] == '0') {
+                    zeroes++;
+                    continue;
+                }
+                if (grid[r][c] == '1') {
+                    int currentIndex = r * n + c;
+
+                    // Directions for adjacent cells (down, right)
+                    int[][] directions = {{1, 0}, {0, 1}};
+
+                    for (int[] dir : directions) {
+                        int nr = r + dir[0];
+                        int nc = c + dir[1];
+
+                        if (nr >= 0 && nr < m && nc >= 0 && nc < n && grid[nr][nc] == '1') {
+                            int neighborIndex = nr * n + nc;
+                            uf.union(currentIndex, neighborIndex);
+                        }
+                    }
+                }
+            }
+        }
+        return uf.getCount() - zeroes;
+    }
+}
+
+ */

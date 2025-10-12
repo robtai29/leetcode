@@ -1,0 +1,110 @@
+/***************************************************************************************
+6.28.25
+https://leetcode.com/problems/find-if-path-exists-in-graph/description/
+****************************************************************************************/
+
+class UnionFind {
+    private int[] parent;
+    private int[] size; // for union by size optimization
+
+    public UnionFind(int n) {
+        parent = new int[n];
+        size = new int[n];
+        for (int i = 0; i < n; ++i) {
+            parent[i] = i; // Initially, each node is its own parent
+            size[i] = 1;   // Initially, each set has size 1
+        }
+    }
+
+    // Find operation with path compression
+    public int find(int x) {
+        if (parent[x] != x) {
+            parent[x] = find(parent[x]); // Path compression
+        }
+        return parent[x];
+    }
+
+    // Union operation with union by size
+    public void union(int a, int b) {
+        int rootA = find(a);
+        int rootB = find(b);
+
+        if (rootA != rootB) {
+            // Union by size: attach the smaller tree under the larger tree
+            if (size[rootA] > size[rootB]) {
+                parent[rootB] = rootA;
+                size[rootA] += size[rootB];
+            } else {
+                parent[rootA] = rootB;
+                size[rootB] += size[rootA];
+            }
+        }
+    }
+}
+
+class Solution {
+    public boolean validPath(int n, int[][] edges, int source, int destination) {
+        UnionFind uf = new UnionFind(n);
+
+        // Perform union operation for each edge
+        for (int[] edge : edges) {
+            uf.union(edge[0], edge[1]);
+        }
+
+        // Check if source and destination are in the same set
+        return uf.find(source) == uf.find(destination);
+    }
+}
+
+/*
+import java.util.HashMap;
+
+class UnionFind {
+    private HashMap<Integer, Integer> parent;
+    private HashMap<Integer, Integer> size; // For Union by Size
+
+    public UnionFind(int n) {
+        parent = new HashMap<>();
+        size = new HashMap<>();
+        for (int i = 0; i < n; ++i) {
+            parent.put(i, i); // Initially, each vertex is its own parent
+            size.put(i, 1);   // Initialize size to 1 (each set contains one element)
+        }
+    }
+
+    public int find(int x) {
+        if (parent.get(x) != x) {
+            parent.put(x, find(parent.get(x))); // Path compression
+        }
+        return parent.get(x);
+    }
+
+    public void union(int a, int b) {
+        int rootA = find(a);
+        int rootB = find(b);
+
+        if (rootA != rootB) {
+            // Union by Size: Attach the smaller tree to the root of the larger tree
+            if (size.get(rootA) < size.get(rootB)) {
+                parent.put(rootA, rootB);
+                size.put(rootB, size.get(rootB) + size.get(rootA));
+            } else {
+                parent.put(rootB, rootA);
+                size.put(rootA, size.get(rootA) + size.get(rootB));
+            }
+        }
+    }
+}
+
+class Solution {
+    public boolean validPath(int n, int[][] edges, int source, int destination) {
+        UnionFind uf = new UnionFind(n);
+
+        for (int[] edge : edges) {
+            uf.union(edge[0], edge[1]); // Corrected to use edge elements
+        }
+
+        return uf.find(source) == uf.find(destination);
+    }
+}
+*/

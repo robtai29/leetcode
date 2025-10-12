@@ -36,3 +36,26 @@ class Solution {
     }
 }
 */
+
+// 5.31.25
+/*
+class Solution {
+    public String kthDistinct(String[] arr, int k) {
+        LinkedHashMap<String, Integer> map = new LinkedHashMap<>();
+        Arrays.stream(arr).forEach(str -> map.put(str, map.getOrDefault(str, 0)+1));
+        
+        for (String key : map.keySet()){
+            int value = map.get(key);
+            if (value == 1){
+                k--;
+            }
+
+            if (k == 0){
+                return key;
+            }
+        }
+
+        return "";
+    }
+}
+ */

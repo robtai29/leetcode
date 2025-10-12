@@ -1,0 +1,60 @@
+/*************************************************************
+6.8.25
+https://leetcode.com/problems/longest-continuous-increasing-subsequence/
+**************************************************************/
+
+class Solution {
+    public int findLengthOfLCIS(int[] nums) {
+        int res = 1;
+        for (int i = 0; i < nums.length; ){
+            int j = i +1;
+            int count = 1;
+            while (j < nums.length && nums[j] > nums[j-1]){
+                j++;
+                count++;
+            }
+
+            res = Math.max(res, count);
+            i = j > i+1 ? j : i+1;
+        }
+
+        return res;
+    }
+}
+
+/*
+class Solution {
+    public int findLengthOfLCIS(int[] nums) {
+        int res = 1;
+        for (int i = 0; i < nums.length; ){
+            int j = i +1;
+            while (j < nums.length && nums[j] > nums[j-1]){
+                j++;
+            }
+
+            res = Math.max(res, j-i);
+            i = j > i+1 ? j : i+1;
+        }
+
+        return res;
+    }
+}
+ */
+
+ /*
+class Solution {
+    public int findLengthOfLCIS(int[] nums) {
+        int res = 1;
+        int localCount = 1;
+        for (int i = 1; i < nums.length; i++){
+            if (nums[i] > nums[i-1]){
+                localCount++;
+                res = Math.max(res, localCount);
+            }else{
+                localCount = 1;
+            }
+        }
+        return res;
+    }
+}
+  */

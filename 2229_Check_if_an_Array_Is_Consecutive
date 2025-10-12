@@ -1,0 +1,49 @@
+/*************************************************************
+6.8.25
+https://leetcode.com/problems/check-if-an-array-is-consecutive/description/
+https://www.lintcode.com/problem/3643/description
+**************************************************************/
+
+public class Solution {
+    public boolean isConsecutive(int[] nums) {
+        if (nums == null || nums.length == 0){
+            return false;
+        }
+
+        if (nums.length == 1){
+            return true;
+        }
+
+        Arrays.sort(nums);
+
+        for (int i = 1; i < nums.length; i++){
+            if (nums[i] != nums[i-1] +1){
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
+
+/*
+public class Solution {
+    /**
+     * @param nums: An integer array.
+     * @return: Whether the array is consecutive.
+     */
+    public boolean isConsecutive(int[] nums) {
+        int min = nums[0];
+        int max = nums[0];
+        Set<Integer> seen = new HashSet<>();
+        
+        for (int num : nums){
+            seen.add(num);
+            min = Math.min(min, num);
+            max = Math.max(max, num);
+        }
+
+        return seen.size() == nums.length && ((min + nums.length -1) == max);
+    }
+}
+*/

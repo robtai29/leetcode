@@ -1,0 +1,80 @@
+/*************************************************************
+6.29.25
+https://leetcode.com/problems/surrounded-regions/description/
+**************************************************************/
+
+class Solution {
+    public void solve(char[][] board) {
+    if (board == null || board.length == 0) return;
+    int numRows = board.length, numCols = board[0].length;
+    int[][] dirs = new int[][]{{0, 1}, {1, 0}};  
+    UnionFind uf = new UnionFind(numRows * numCols + 1);    // +1 for the special component that we use to mark 'O's that are connected to the border
+    
+    // Make connections between neighbouring 'O's.
+    for (int i = 0; i < board.length; ++i) {
+        for (int j = 0; j < board[0].length; ++j) {
+            if (board[i][j] == 'O') {
+                // If the current 'O' is on the border then connect it to the special component.
+                if (i == 0 || i == board.length - 1 || j == 0 || j == board[0].length - 1) {
+                    uf.union(i * numCols + j, numRows * numCols);      
+                }
+                // Connect the current 'O' with all neighbouring '0'.
+                for (int[] dir : dirs) {
+                    int newRow = i + dir[0], newCol = j + dir[1];
+                    if (0 <= newRow && newRow < board.length && 0 <= newCol && newCol < board[0].length && board[newRow][newCol] == 'O') {
+                        uf.union(i * numCols + j, newRow * numCols + newCol);
+                    }
+                }
+            }
+        }
+    }
+    
+    // Flip 'O's that are not connected to the border.
+    for (int i = 0; i < board.length; ++i) {
+        for (int j = 0; j < board[0].length; ++j) {
+            if (board[i][j] == 'O' && !uf.connected(i * numCols + j, numRows * numCols)) {
+                board[i][j] = 'X';
+            }
+        }
+    }
+}
+
+private class UnionFind {
+    private int[] parent;
+    private int[] size;
+    
+    public UnionFind(int n) {
+        parent = new int[n];   
+        size = new int[n];
+        for (int i = 0; i < n; ++i) {
+            parent[i] = i;      // Every element in the grid is initially a separate component.
+            size[i] = 1;
+        }
+    }
+    
+    public void union(int x, int y) {
+        int xRoot = find(x);
+        int yRoot = find(y);
+        if (xRoot != yRoot) {
+            if (size[xRoot] > size[yRoot]) {
+                parent[yRoot] = xRoot;
+                size[xRoot] += size[yRoot];
+        } else {
+                parent[xRoot] = yRoot;
+                size[yRoot] += size[xRoot];
+            }
+        }    
+    }
+    
+    public int find(int x) {
+        if (parent[x] != x){
+            parent[x] = find(parent[x]);
+        }
+        return parent[x];
+    }
+    
+    public boolean connected(int x, int y) {
+        return find(x) == find(y);
+    }
+}
+}

@@ -31,3 +31,30 @@ class Solution {
         return true;
     }
 }
+
+// 6.14.2025
+/*
+class Solution {
+    public String firstPalindrome(String[] words) {
+        return IntStream.range(0, words.length)
+        .filter(i -> isPalindrome(words[i]))
+        .mapToObj(i -> words[i])
+        .findFirst()
+        .orElse("");
+    }
+
+    boolean isPalindrome(String word){
+        char[] arr = word.toCharArray();
+        int left = 0, right = arr.length-1;
+        while (left < right){
+            if (arr[left] != arr[right]){
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+
+}
+ */

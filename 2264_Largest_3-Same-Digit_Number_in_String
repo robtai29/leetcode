@@ -1,5 +1,5 @@
 /*
- *  12.2.24
+ *  12.2.2024, 6.7.2025
  *  https://leetcode.com/problems/largest-3-same-digit-number-in-string/
  */
 
@@ -17,7 +17,6 @@ class Solution {
                 res = Math.max(res, currentVal);
             }     
         }
-        System.out.println(res);
         return res == -1 ? "" : String.valueOf(res).repeat(3);
     }
 }

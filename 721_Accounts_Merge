@@ -1,0 +1,77 @@
+/*************************************************************
+7.13.25
+https://leetcode.com/problems/accounts-merge/
+**************************************************************/
+
+class Solution {
+    static class UnionFind {
+        private int[] size;
+        private int[] parent;
+
+        public UnionFind(int n){
+            size = new int[n];
+            parent = new int[n];
+
+            for (int i = 0; i < n; i++){
+                size[i] = 1;
+                parent[i] = i;
+            }
+        }
+
+        public int find(int p){
+            if (parent[p] != p){
+                parent[p] = find(parent[p]);
+            }
+            return parent[p];
+        }
+
+        public void union(int p, int q){
+            int rootP = find(p);
+            int rootQ = find(q);
+
+            if (rootP != rootQ){
+                if (size[rootP] > size[rootQ]){
+                    parent[rootQ] = rootP;
+                    size[rootP] += size[rootQ];
+                }else{
+                    parent[rootP] = rootQ;
+                    size[rootQ] += size[rootP];
+                }
+            }
+        }
+    }
+
+    public List<List<String>> accountsMerge(List<List<String>> accounts) {
+        UnionFind uf = new UnionFind(accounts.size());
+        Map<String, Integer> emailIndexMap = new HashMap<>();
+        for (int i = 0; i < accounts.size(); i++){
+            for (int j = 1; j < accounts.get(i).size(); j++){
+                String email = accounts.get(i).get(j);
+                if (emailIndexMap.containsKey(email)){
+                    uf.union(i, emailIndexMap.get(email).intValue());
+                }else{
+                    emailIndexMap.put(email, i);
+                }
+            }
+        }
+
+        Map<Integer, List<String>> indexEmailMap = new HashMap<>();
+        for (String email : emailIndexMap.keySet()){
+            int root = uf.find(emailIndexMap.get(email));
+            if (!indexEmailMap.containsKey(root)){
+                indexEmailMap.put(root, new ArrayList<String>());
+            }
+
+            indexEmailMap.get(root).add(email);
+        }
+
+        List<List<String>> res = new ArrayList<>();
+        for (Integer index : indexEmailMap.keySet()){
+            List<String> list = indexEmailMap.get(index);
+            Collections.sort(list);
+            list.add(0, accounts.get(index).get(0));
+            res.add(list);
+        }
+        return res;
+    }
+}
