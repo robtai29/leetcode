@@ -63,3 +63,23 @@ class Solution {
     }
 }
   */
+
+  // 11.4.2025
+/*
+
+class Solution {
+    public String removeDuplicates(String s) {
+        LinkedList<Character> stack = new LinkedList<>();
+        for (char ch : s.toCharArray()){
+            if (stack.isEmpty() || stack.peekLast() != ch){
+                stack.addLast(ch);
+            }else{
+                stack.removeLast();
+            }
+        }
+
+        return stack.stream().map(String::valueOf).collect(Collectors.joining());
+    }
+}
+
+*/
