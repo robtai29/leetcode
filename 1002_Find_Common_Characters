@@ -88,4 +88,36 @@ class Solution {
         
     }
 }
+
+// 11.3.2025
+
+class Solution {
+    public List<String> commonChars(String[] words) {
+        int[] counter = new int[26];
+        for (char ch : words[0].toCharArray()){
+            counter[ch - 'a']++;
+        } 
+
+        for (int i = 1; i < words.length; i++){
+            int[] wordLetterCounter = new int[26];
+            for (char ch : words[i].toCharArray()){
+                wordLetterCounter[ch - 'a']++;
+            } 
+
+            for (int j = 0; j < 26; j++){
+                int min = Math.min(counter[j], wordLetterCounter[j]);
+                counter[j] = min;
+            }
+        }
+
+        List<String> letters = new ArrayList<>();
+        for (int i = 0; i < 26; i++){
+            String letter = "" + (char)(i + 'a');
+            int copies = counter[i];
+            letters.addAll(Collections.nCopies(copies, letter));
+        }
+        return letters;
+    }
+}
+
  */
