@@ -33,3 +33,14 @@ class Solution {
     }
 }
  */
+
+ // 11.2.2025
+/* 
+ class Solution {
+    public int lengthOfLastWord(String s) {
+        return Arrays.stream(s.trim().split("\\s+"))
+        .reduce("", (subtotal, element) -> element)
+        .length();
+    }
+}
+*/
