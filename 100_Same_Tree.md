@@ -1,5 +1,5 @@
 /*
- * 11.27.24
+ * 11.27.24, 11.07.25
  * https://leetcode.com/problems/same-tree/
  */
 
@@ -22,8 +22,7 @@ class Solution {
 ---
 
 ```java
-// 11.7.2025
-/*
+
 class Solution {
     public boolean isSameTree(TreeNode p, TreeNode q) {
 
