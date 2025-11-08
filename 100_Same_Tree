@@ -2,6 +2,8 @@
  * 11.27.24
  * https://leetcode.com/problems/same-tree/
  */
+
+ ```java
 class Solution {
     public boolean isSameTree(TreeNode p, TreeNode q) {
         if (p == null && q == null) {
@@ -15,7 +17,11 @@ class Solution {
         return p.val == q.val && isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
     }
 }
+```
 
+---
+
+```java
 // 11.7.2025
 /*
 class Solution {
@@ -27,7 +33,7 @@ class Solution {
         while(!queue.isEmpty()){
             TreeNode a = queue.poll();
             TreeNode b = queue.poll();
-            
+
             if (a == null && b == null){
                 continue;
             }else if (a == null || b == null || a.val != b.val){
@@ -43,4 +49,5 @@ class Solution {
         return true;
     }
 }
- */
+
+```
