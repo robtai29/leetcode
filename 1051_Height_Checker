@@ -29,3 +29,37 @@ class Solution {
         
     }
 }
+
+// 11.08.2025
+/*
+class Solution {
+    public int heightChecker(int[] heights) {
+
+        TreeMap<Integer, Integer> heightFrequencies = new TreeMap<>();
+        for (int height : heights) {
+            heightFrequencies.put(height, heightFrequencies.getOrDefault(height, 0) + 1);
+        }
+
+        int mismatches = 0, index = 0;
+        
+        Iterator<Map.Entry<Integer, Integer>> it= heightFrequencies.entrySet().iterator();
+        
+        while (it.hasNext()){
+            Map.Entry<Integer, Integer> entry = it.next();
+            int freq = entry.getValue();
+            int num = entry.getKey();
+            while (freq > 0 && index < heights.length){
+                int height = heights[index];
+                if (height != num){
+                    mismatches++;
+                }
+
+                index++;
+                freq--;
+            }
+        }
+
+        return mismatches;
+    }
+}
+*/
