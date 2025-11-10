@@ -123,3 +123,28 @@ class Solution {
     
 }
    */
+
+   // 11.9.25
+
+   /*
+    public int[] relativeSortArray(int[] arr1, int[] arr2) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < arr2.length; i++){
+            map.put(arr2[i], i);
+        }
+
+        List<Integer> list = Arrays.stream(arr1).boxed().collect(Collectors.toList());
+
+        list.sort(new Comparator<Integer>() {
+            public int compare(Integer a, Integer b){
+                int rankA = map.getOrDefault(a,  arr2.length);
+                int rankB = map.getOrDefault(b,  arr2.length);
+
+                return rankA == rankB ? Integer.compare(a, b) : Integer.compare(rankA, rankB);
+            }
+        });
+
+        return list.stream().mapToInt(Integer::valueOf).toArray();
+    }
+}
+    */
