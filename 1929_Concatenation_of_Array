@@ -1,5 +1,5 @@
 /*************************************************************
-7.28.25
+7.28.25, 11.9.25
 https://leetcode.com/problems/concatenation-of-array/
 **************************************************************/
 
@@ -9,3 +9,17 @@ class Solution {
         return IntStream.range(0, 2*n).map(i->nums[i%n]).toArray();
     }
 }
+
+/*
+class Solution {
+    public int[] getConcatenation(int[] nums) {
+        int[] res = new int[nums.length*2];
+
+        for (int i = 0; i < res.length; i++){
+            res[i] = nums[i % nums.length];
+        }
+
+        return res;
+    }
+}
+ */
