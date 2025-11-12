@@ -31,3 +31,31 @@ HashMap<String, Integer> map = new HashMap<>();
     }
 
 }
+
+
+ // 11.12.2025
+/*
+class Solution {
+    public String largestWordCount(String[] messages, String[] senders) {
+        Map<String, Integer> counter = new HashMap<>();
+
+        for (int i = 0; i < messages.length; i++){
+            int numWords = messages[i].split("\\s+").length;
+            counter.put(senders[i], counter.getOrDefault(senders[i], 0) + numWords);
+        }
+
+        List<String> list = new LinkedList<>(counter.keySet());
+
+        list.sort(new Comparator<String>(){
+            public int compare(String a, String b){
+                int rankA = counter.get(a);
+                int rankB = counter.get(b);
+
+                return rankA == rankB ? a.compareTo(b) : Integer.compare(rankA, rankB);
+            };
+        });
+
+        return list.get(list.size() -1);
+    }
+}
+*/
