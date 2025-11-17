@@ -47,3 +47,27 @@ class Solution {
     }
 }
  */
+
+
+ // 11.16.2025
+ /*
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int[] arr = new int[nums.length];
+        Arrays.fill(arr, 1);
+        int leftProduct = 1;
+        for (int i = 0; i < arr.length; i++){
+            arr[i] = leftProduct;
+            leftProduct = leftProduct * nums[i];
+        }
+
+        int rightProduct = 1;
+        for (int j = arr.length-1; j>=0; j--){
+            arr[j] = arr[j] * rightProduct;
+            rightProduct = rightProduct * nums[j];
+        }
+
+        return arr;
+    }
+}
+  */
