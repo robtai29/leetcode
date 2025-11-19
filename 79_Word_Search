@@ -1,0 +1,48 @@
+/*********************************************************************
+11.19.25
+https://leetcode.com/problems/word-search/
+**********************************************************************/
+
+class Solution {
+    public boolean exist(char[][] board, String word) {
+        int m = board.length;
+        int n = board[0].length;
+
+        for (int row = 0; row < m; row++){
+            for (int col = 0; col < n; col++){
+                if (dfs(board, word, 0, row, col)){
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private boolean dfs(char[][] board, String word, int step, int row, int col){
+        int rows = board.length;
+        int cols = board[0].length;
+        if (board[row][col] != word.charAt(step)){
+            return false;
+        }
+
+        if (step == word.length()-1){
+            return true;
+        }
+
+        char oldChar = word.charAt(step);
+        board[row][col] = '*';
+        int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        for (int[] dir : dirs){
+            int nextRow = row + dir[0];
+            int nextCol = col + dir[1];
+            if (nextRow >= 0 && nextRow < rows && nextCol >= 0 && nextCol < cols && board[nextRow][nextCol] != '*'){
+                if (dfs (board, word, step+1, nextRow, nextCol)){
+                    return true;
+                }
+            }
+        }
+        board[row][col] = oldChar;
+        return false;
+    }
+}
