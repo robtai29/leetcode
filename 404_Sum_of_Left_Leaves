@@ -1,0 +1,21 @@
+/*************************************************************
+11.20.25
+https://leetcode.com/problems/sum-of-left-leaves/
+**************************************************************/
+
+class Solution {
+    public int sumOfLeftLeaves(TreeNode root) {
+        return sumOfLeftLeaves(root, false);
+    }
+
+    private int sumOfLeftLeaves(TreeNode node, boolean isLeftChild){
+        if (node == null){
+            return 0;
+        }
+
+        if (isLeftChild && node.left == null && node.right == null){
+            return node.val;
+        }
+        return sumOfLeftLeaves(node.left, true) + sumOfLeftLeaves(node.right, false);
+    }
+}
