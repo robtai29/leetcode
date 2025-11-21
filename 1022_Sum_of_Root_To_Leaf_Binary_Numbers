@@ -1,0 +1,23 @@
+/*************************************************************
+11.20.25
+https://leetcode.com/problems/sum-of-root-to-leaf-binary-numbers/description/
+**************************************************************/
+
+class Solution {
+    public int sumRootToLeaf(TreeNode root) {
+        return sumRootToLeaf(root, 0);
+    }
+
+    private int sumRootToLeaf(TreeNode node, int sum){
+        if (node == null){
+            return 0;
+        }
+
+        sum = sum * 2 + node.val;
+        // gotta stop at the leaves
+        if (node.left == null && node.right == null){
+            return sum;
+        }
+        return sumRootToLeaf(node.left, sum) + sumRootToLeaf(node.right, sum);
+    }
+}
