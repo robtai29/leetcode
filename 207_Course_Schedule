@@ -37,3 +37,50 @@ class Solution {
         return count == nums;
     }
 }
+
+// 11.22.25
+/*
+class Solution {
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        List<List<Integer>> adjList = new ArrayList<>(numCourses);
+        for (int i = 0; i < numCourses; i++){
+            adjList.add(new ArrayList<>());
+        }
+
+        for (int[] prerequisite :prerequisites){
+            int from = prerequisite[1];
+            int to = prerequisite[0];
+
+            adjList.get(to).add(from);
+        }
+
+        // 0 - unvisited, 1 - visiting, 2 - visited
+        int[] record = new int[numCourses];
+        for (int i = 0; i < numCourses; i++){
+            if (!dfs(adjList, record, i)){
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    // return false if cycle found
+    private boolean dfs(List<List<Integer>> adjList, int[] record, int num){
+        record[num] = 1;
+
+        for (int neighbor : adjList.get(num)){
+            if (record[neighbor] == 1){
+                return false;
+            }
+
+            if (record[neighbor] == 0){
+                if (!dfs[adjList, record, neighbor]){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+}
+*/
