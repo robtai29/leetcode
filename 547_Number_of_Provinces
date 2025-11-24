@@ -61,3 +61,32 @@ class Solution {
         return uf.getCount();
     }
 }
+
+// 11.23.25
+/*
+class Solution {
+    public int findCircleNum(int[][] isConnected) {
+        int count = 0;
+        boolean[] visited = new boolean[isConnected.length];
+
+        for (int row = 0; row < isConnected.length; row++){
+            if (!visited[row]){
+                count++;
+                dfs(isConnected, visited, row);
+            }
+        }
+
+        return count;
+    }
+
+    private void dfs(int[][] isConnected, boolean[] visited, int row){
+        visited[row] = true;
+
+        for (int col = 0; col < isConnected[row].length; col++){
+            if (isConnected[row][col] != 0 && visited[col] == false){
+                dfs(isConnected, visited, col);
+            }
+        }
+    }
+}
+*/
