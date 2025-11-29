@@ -1,0 +1,55 @@
+/*************************************************************
+11.28.25
+https://leetcode.com/problems/cheapest-flights-within-k-stops
+**************************************************************/
+
+class Solution {
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
+        Map<Integer, Map<Integer, Integer>> distanceMap = new HashMap<>();
+        for (int[] flight : flights){
+            distanceMap.putIfAbsent(flight[0], new HashMap<>());
+            distanceMap.get(flight[0]).put(flight[1], flight[2]);
+        }
+
+        // PriorityQueue stores int[]{city, cost, stops}, ordered by cost
+        PriorityQueue<int[]> pq = new PriorityQueue<>(new Comparator<int[]>(){
+            public int compare(int[] a, int[] b){
+                return Integer.compare(a[1], b[1]);
+            }
+        });
+
+        // Track minimum stops to reach each city with the current best cost
+        int[] minStops = new int[n];
+        Arrays.fill(minStops, Integer.MAX_VALUE);
+
+        pq.add(new int[]{src, 0, 0}); // Start with src, cost 0, stops 0
+
+        while(!pq.isEmpty()){
+            int[] entry = pq.remove();
+            int currentNode = entry[0];
+            int currentCost = entry[1];
+            int currentStops = entry[2];
+
+            if (currentNode == dst) {
+                return currentCost;
+            }
+            
+            if (currentStops > k) {
+                continue;
+            }
+            
+            if (currentStops >= minStops[currentNode]) {
+                continue;
+            }
+            minStops[currentNode] = currentStops;
+
+            if (distanceMap.containsKey(currentNode)){
+                for (int nextNode : distanceMap.get(currentNode).keySet()){
+                    int price = distanceMap.get(currentNode).get(nextNode);
+                    pq.add(new int[]{nextNode, currentCost + price, currentStops + 1});
+                }
+            }
+        }
+            return -1;
+    }
+}
