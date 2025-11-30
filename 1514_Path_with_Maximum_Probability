@@ -1,0 +1,61 @@
+/*************************************************************
+11.29.25
+https://leetcode.com/problems/path-with-maximum-probability/
+*************************************************************/
+
+class Solution {
+    public double maxProbability(int n, int[][] edges, double[] succProb, int start, int end) {
+        Map<Integer, Map<Integer, Double>> distanceMap = new HashMap<>();
+        for (int i = 0; i < edges.length; ++i) {
+            int u = edges[i][0];
+            int v = edges[i][1];
+            double prob = succProb[i];
+            distanceMap.putIfAbsent(u, new HashMap<>());
+            distanceMap.get(u).put(v, prob);
+            distanceMap.putIfAbsent(v, new HashMap<>());
+            distanceMap.get(v).put(u, prob);
+        }
+
+        // ordered by probability descending
+        PriorityQueue<double[]> pq = new PriorityQueue<>(new Comparator<double[]>() {
+            public int compare(double[] a, double[] b) {
+                return Double.compare(b[1], a[1]); 
+            }
+        });
+
+        double[] maxProb = new double[n];
+        Arrays.fill(maxProb, 0.0);
+
+        // Start with src, probability 1.0. Store {node, probability}
+        pq.add(new double[]{(double) start, 1.0});
+
+        while (!pq.isEmpty()) {
+            double[] entry = pq.remove();
+            int currentNode = (int) entry[0];
+            double currentProb = entry[1];
+
+            if (currentNode == end) {
+                return currentProb;
+            }
+
+            // If we found a better probability path already, skip this lesser one
+            if (currentProb < maxProb[currentNode]) {
+                continue;
+            }
+            
+            maxProb[currentNode] = currentProb;
+
+            if (distanceMap.containsKey(currentNode)) {
+                for (int nextNode : distanceMap.get(currentNode).keySet()) {
+                    double prob = distanceMap.get(currentNode).get(nextNode);
+                    double newProb = currentProb * prob;
+                    if (newProb > maxProb[nextNode]) {
+                        pq.add(new double[]{(double) nextNode, newProb}); 
+                    }
+                }
+            }
+        }
+
+        return 0.0d;
+    }
+}
