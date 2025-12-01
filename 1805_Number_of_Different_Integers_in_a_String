@@ -1,47 +1,59 @@
 /*************************************************************
-7.9.22
+7.9.22, 11.30.25
 https://leetcode.com/problems/number-of-different-integers-in-a-string/
 **************************************************************/
 
 class Solution {
-int numDifferentIntegers(String w) {
-HashSet<String> s = new HashSet<>();  
- for (int i = 0, j = 0; j <= w.length(); ++j) {
-if (j < w.length() && Character.isDigit(w.charAt(j)))
-i = j > i && w.charAt(i) == '0' ? i+1 : i;
-else {
-if (i < j) s.add(w.substring(i, j));
-i = j + 1;
-}
-}
-return s.size();
-}
-}
+    public int numDifferentIntegers(String word) {
+        Set<String> set = new HashSet<>();
 
-/\*
-class Solution {
-public int numDifferentIntegers(String word) {
-String[] arr = word.replaceAll("[a-z]+", " ").trim().split("\\s+");
+        for (int i = 0, j = 0; j <= word.length(); j++){
+            if (j < word.length() && Character.isDigit(word.charAt(j))){
+                // skip leading zero
+                i = word.charAt(i) == '0' && j > i ? i+1 : i;
+            }else{
+                // condition: j == arr.length || !Character.isDigit(arr[j])
+                if (j > i){
+                    set.add(word.substring(i, j));
+                }
 
-        HashSet<String> set = new HashSet<>();
-
-        for (String str : arr){
-            if (str.length() > 0){
-                set.add(str.replaceAll("^0+", ""));
+                i = j+1;
             }
-
+            
         }
 
         return set.size();
     }
+}
 
-}
-_/
-/_
+
+// 11.30.2025
+/* 
+import java.math.BigInteger; // Add this import statement
+
 class Solution {
-public int numDifferentIntegers(String word) {
-return (int)Arrays.stream(word.replaceAll("[a-z]+", " ").split("\\s+")).filter(s -> s.length() > 0)
-.map(s -> s.replaceAll("^0+", "")).distinct().count();
+    public int numDifferentIntegers(String word) {
+        return (int)Arrays.stream(word.split("\\D+"))
+                          .filter(str -> !str.isEmpty())
+                          .map(BigInteger::new)
+                          .distinct()
+                          .count();
+    }
 }
+*/
+
+
+// 11.30.2025 
+/*
+class Solution {
+    public int numDifferentIntegers(String word) {
+        return Arrays.stream(word.replaceAll("\\D+", " ")
+                    .split("\\s+"))
+                    .filter(str -> !str.isEmpty())
+                    .map(str -> str.replaceAll("^0*", ""))
+                    .collect(Collectors.toSet())
+                    .size();
+    }
 }
-\*/
+
+*/
