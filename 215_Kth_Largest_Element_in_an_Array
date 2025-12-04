@@ -1,6 +1,6 @@
 
 /*************************************************************
-7.9.22
+7.9.22, 12
 https://leetcode.com/problems/kth-largest-element-in-an-array/
 **************************************************************/
 
@@ -16,5 +16,47 @@ PriorityQueue<Integer> minheap = new PriorityQueue<>();
         }
         return minheap.remove();
     }
-
 }
+
+// 12.3.2025
+/*
+class Solution {
+    
+    public int findKthLargest(int[] nums, int k) {
+        int targetIndex = nums.length - k;
+        return quickSelect(nums, targetIndex, 0, nums.length-1);
+    }
+
+    private int quickSelect(int[] nums, int targetIndex, int left, int right){
+        if (left == right){
+            return nums[left];
+        }
+
+        int i = left - 1;
+        int j = right + 1;
+
+        int pivotValue = nums[left + (right - left)/2];
+
+        while (i < j){
+
+            while (nums[++i] < pivotValue){
+            }
+
+            while (nums[--j] > pivotValue){
+            }
+
+            if (i < j){
+                int temp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = temp;
+            }
+        }
+
+        if (j < targetIndex){
+            return quickSelect(nums, targetIndex, j+1, right);
+        }else{
+            return quickSelect(nums, targetIndex, left, j);
+        }
+    }
+}
+*/
