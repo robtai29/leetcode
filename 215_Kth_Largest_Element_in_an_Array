@@ -1,9 +1,64 @@
 
 /*************************************************************
-7.9.22, 12
+7.9.22, 12.6.25
 https://leetcode.com/problems/kth-largest-element-in-an-array/
 **************************************************************/
 
+import java.util.Random;
+
+public class Solution {
+
+    public int findKthLargest(int[] nums, int k) {
+        int targetIndex = nums.length - k;
+        Random random = new Random();
+        return quickSelect(nums, 0, nums.length - 1, targetIndex, random);
+    }
+
+    private int quickSelect(int[] nums, int left, int right, int targetIndex, Random random) {
+        if (left == right) {
+            return nums[left];
+        }
+
+
+        int pivotIndex = left + random.nextInt(right - left + 1);
+
+        int newPivotIndex = partition(nums, left, right, pivotIndex);
+
+        if (targetIndex == newPivotIndex) {
+            return nums[targetIndex];
+        } else if (targetIndex < newPivotIndex) {
+            return quickSelect(nums, left, newPivotIndex - 1, targetIndex, random);
+        } else {
+            return quickSelect(nums, newPivotIndex + 1, right, targetIndex, random);
+        }
+    }
+
+    // Lomuto Partition Scheme
+    private int partition(int[] nums, int left, int right, int pivotIndex) {
+        int pivotValue = nums[pivotIndex];
+        swap(nums, pivotIndex, right);
+        int storeIndex = left;
+
+        for (int i = left; i < right; i++) {
+            if (nums[i] < pivotValue) {
+                swap(nums, storeIndex, i);
+                storeIndex++;
+            }
+        }
+        swap(nums, storeIndex, right);
+        return storeIndex;
+    }
+
+    private void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+}
+
+
+// 7.9.22
+/*
 class Solution {
 public int findKthLargest(int[] nums, int k) {
 PriorityQueue<Integer> minheap = new PriorityQueue<>();
@@ -17,6 +72,8 @@ PriorityQueue<Integer> minheap = new PriorityQueue<>();
         return minheap.remove();
     }
 }
+*/
+
 
 // 12.3.2025
 /*
