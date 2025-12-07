@@ -95,7 +95,7 @@ class Solution {
   */
 
 // 12.5.2025
-
+// quick select using hoare partition
 /*
 import java.util.Arrays;
 import java.util.HashMap;
@@ -149,6 +149,66 @@ class Solution {
         }
     }
 }
+*/
 
 
+// 12.7.2025
+// quick select using lomuto partition
+/*
+import java.util.Random;
+class Solution {
+    private Map<Integer, Integer> count;
+    public int[] topKFrequent(int[] nums, int k) {
+        this.count = new HashMap<>();
+        for (int num : nums){
+            count.put(num, count.getOrDefault(num, 0)+1);
+        }
+
+        int[] arr = count.keySet().stream().mapToInt(Integer::intValue).toArray();
+        int targetIndex = arr.length - k;
+        Random random = new Random();
+        quickSelect(arr, 0, arr.length-1, targetIndex, random);
+
+        return Arrays.copyOfRange(arr, arr.length-k, arr.length);
+    }
+
+    private void quickSelect(int[] arr, int left, int right, int targetIndex, Random random){
+        if (left == right){
+            return;
+        }
+
+        int pivotIndex = left + random.nextInt(right - left + 1);
+        int newPivotIndex = partition(arr, left, right, pivotIndex);
+
+        if (newPivotIndex == targetIndex){
+            return;
+        }else if (newPivotIndex < targetIndex){
+            quickSelect(arr, newPivotIndex+1, right, targetIndex, random);
+        }else {
+            quickSelect(arr, left, newPivotIndex -1, targetIndex, random);
+        }
+    }
+
+    private int partition(int[] arr, int left, int right, int pivotIndex){
+        int pivotFreq = count.get(arr[pivotIndex]);
+        swap(arr, pivotIndex, right);
+
+        int storeIndex = left;
+        for (int i = left; i < right; i++){
+            if (count.get(arr[i]) < pivotFreq){
+                swap(arr, i, storeIndex);
+                storeIndex++;
+            }
+        }
+
+        swap(arr, storeIndex, right);
+        return storeIndex;
+    }
+
+    private void swap(int[] arr, int a, int b){
+        int temp = arr[a];
+        arr[a] = arr[b];
+        arr[b] = temp;
+    }
+}
 */
