@@ -1,5 +1,5 @@
 /*************************************************************
-1.1.25
+1.1.25, 12.7.2025
 https://leetcode.com/problems/top-k-frequent-words/description/
 **************************************************************/
 
@@ -34,3 +34,102 @@ class Solution {
         return res;
     }
 }
+
+// 12.7.2025
+/*
+import java.util.*;
+
+class Solution {
+    public List<String> topKFrequent(String[] words, int k) {
+        Map<String, Integer> map = new HashMap<>();
+        for (String word : words) {
+            map.put(word, map.getOrDefault(word, 0) + 1);
+        }
+
+        Map.Entry<String, Integer>[] entries = map.entrySet().toArray(new Map.Entry[0]);
+        // -1 cuz index of 0
+        int targetIndex = k - 1;
+        Random random = new Random();
+        quickSelect(entries, 0, entries.length - 1, targetIndex, random);
+
+        // alternative
+        // List<Map.Entry<String, Integer>> topKList = Arrays.stream(entries)
+        //                                                   .limit(k)
+        //                                                   .collect(Collectors.toList());
+
+        List<Map.Entry<String, Integer>> topKList = Arrays.asList(entries).subList(0, Math.min(k, entries.length));
+
+
+        // Sort these K elements according to the custom comparator (desc frequency, asc alphabetical)
+        Collections.sort(topKList, new MyComparator());
+
+        List<String> ans = topKList.stream()
+                           .map(Map.Entry::getKey) 
+                           .collect(Collectors.toList());
+        return ans;
+    }
+
+    private void quickSelect(Map.Entry<String, Integer>[] entries, int left, int right, int targetIndex, Random random) {
+        if (left == right) {
+            return;
+        }
+
+
+        int pivotIndex = left + random.nextInt(right - left + 1);
+        int newPivotIndex = lomutoPartition(entries, left, right, pivotIndex);
+
+        if (newPivotIndex == targetIndex) {
+            return;
+        } else if (newPivotIndex < targetIndex) {
+            // Target is in the right partition
+            quickSelect(entries, newPivotIndex + 1, right, targetIndex, random);
+        } else {
+            // Target is in the left partition
+            quickSelect(entries, left, newPivotIndex - 1, targetIndex, random);
+        }
+    }
+
+    private int lomutoPartition(Map.Entry<String, Integer>[] entries, int left, int right, int pivotIndex) {
+        Map.Entry<String, Integer> pivotValue = entries[pivotIndex];
+        swap(entries, pivotIndex, right);
+        int storeIndex = left;
+        MyComparator myComparator = new MyComparator();
+
+        for (int i = left; i < right; i++) {
+            //  means compare() returns <= 0
+            if (myComparator.compare(entries[i], pivotValue) <= 0) {
+                swap(entries, storeIndex, i);
+                storeIndex++;
+            }
+        }
+        swap(entries, storeIndex, right);
+        return storeIndex; 
+    }
+
+    private void swap(Map.Entry<String, Integer>[] entries, int a, int b) {
+        Map.Entry<String, Integer> temp = entries[a];
+        entries[a] = entries[b];
+        entries[b] = temp;
+    }
+}
+
+// Comparator class remains the same
+class MyComparator implements Comparator<Map.Entry<String, Integer>> {
+    @Override
+    public int compare(Map.Entry<String, Integer> e1, Map.Entry<String, Integer> e2) {
+        String word1 = e1.getKey();
+        int freq1 = e1.getValue();
+        String word2 = e2.getKey();
+        int freq2 = e2.getValue();
+
+        if (freq1 != freq2) {
+            // Descending frequency (higher frequency comes first/lower rank comes first)
+            return Integer.compare(freq2, freq1);
+        } else {
+            // Ascending alphabetical order (lower alphabetical word comes first/lower rank)
+            return word1.compareTo(word2);
+        }
+    }
+}
+
+*/
