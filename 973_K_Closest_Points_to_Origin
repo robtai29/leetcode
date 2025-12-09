@@ -1,6 +1,6 @@
 
 /*************************************************************
-7.9.22
+7.9.22, 12.8.2025
 https://leetcode.com/problems/k-closest-points-to-origin/
 **************************************************************/
 
@@ -58,3 +58,62 @@ class Solution {
     }
 }
  */
+
+
+// 12.8.2025
+/*
+import java.util.Random;
+
+class Solution {
+    public int[][] kClosest(int[][] points, int k) {
+        Random random = new Random();
+        quickSelect(points, 0, points.length-1, random, k-1);
+
+        return Arrays.copyOfRange(points, 0, k);
+    }
+
+    private void quickSelect(int[][] points, int left, int right, Random random, int targetIndex) {
+        if (left == right){
+            return;
+        }
+
+        int pivot = left + random.nextInt(right - left + 1);
+        int newPivot = partition(points, left, right, pivot);
+        if (newPivot == targetIndex){
+            return;
+        }else if (newPivot < targetIndex){
+            quickSelect(points, newPivot + 1, right, random, targetIndex);
+        }else {
+            quickSelect(points, left, newPivot -1, random, targetIndex);
+        }
+ 
+    }
+
+    private int partition(int[][] points, int left, int right, int pivot){
+        int[] pivotPoint = points[pivot];
+        int pivotDistance =  pivotPoint[0] * pivotPoint[0] + pivotPoint[1] * pivotPoint[1];
+
+        swap(points, pivot, right);
+
+        int storeIndex = left;
+        for (int i = left; i < right; i++){
+            int[] point = points[i];
+            int distance = point[0] * point[0] + point[1] * point[1];
+
+            if (distance < pivotDistance){
+                swap(points, i, storeIndex);
+                storeIndex++;
+            }
+        }
+
+        swap(points, storeIndex, right);
+        return storeIndex;
+    }
+
+    private void swap(int[][] points, int a, int b){
+        int[] temp = points[a];
+        points[a] = points[b];
+        points[b] = temp;
+    }
+}
+*/
