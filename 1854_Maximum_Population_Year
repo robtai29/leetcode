@@ -1,29 +1,30 @@
 /*************************************************************
-1.11.24
+1.11.24, 12.9.25
 https://leetcode.com/problems/maximum-population-year/
 **************************************************************/
 
 class Solution {
     public int maximumPopulation(int[][] logs) {
         int[] population = new int[101];
-        int max_population = 0;
-        int max_year = 1950;
+        int yearZero = 1950;
 
-        for (int[] log: logs){
-            population[log[0] - 1950]++;
-            population[log[1] - 1950]--;
+        for (int[] log : logs){
+            population[log[0] - yearZero]++;
+            population[log[1] - yearZero]--;
         }
 
-        int current = 0;
+        int maxYear = 0;
+        int maxPopulation = 0;
+        int currentPopulation = 0;
 
         for (int i = 0; i < population.length; i++){
-            current = current + population[i];
-
-            if (max_population < current){
-                max_population = current;
-                max_year = i + 1950;
+            currentPopulation += population[i];
+            if (currentPopulation > maxPopulation){
+                maxPopulation = currentPopulation;
+                maxYear = i;
             }
         }
-        return max_year;
+
+        return maxYear + yearZero;
     }
 }
