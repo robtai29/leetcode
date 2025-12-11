@@ -1,5 +1,5 @@
 /*************************************************************
-1.11.24, 12.9.25
+1.11.24, 12.10.25
 https://leetcode.com/problems/maximum-population-year/
 **************************************************************/
 
@@ -28,3 +28,38 @@ class Solution {
         return maxYear + yearZero;
     }
 }
+
+// 12.10.2025
+/*
+class Solution {
+    public int maximumPopulation(int[][] logs) {
+        int earliestYear = Integer.MAX_VALUE;
+        int latestYear = Integer.MIN_VALUE;
+
+        Map<Integer, Integer> map = new HashMap<>();
+        
+        for (int[] log : logs){
+            int birthYear = log[0];
+            int deathYear = log[1];
+
+            earliestYear = Math.min(earliestYear, birthYear);
+            latestYear = Math.max(latestYear, deathYear);
+            map.put(birthYear, map.getOrDefault(birthYear, 0)+1);
+            map.put(deathYear, map.getOrDefault(deathYear, 0)-1);
+        }
+
+        int maxPopulation = 0;
+        int population = 0;
+        int maxYear = earliestYear;
+        for (int year = earliestYear; year <= latestYear; year++){
+            population += map.getOrDefault(year, 0);
+            if (population > maxPopulation){
+                maxPopulation = population;
+                maxYear = year;
+            }
+        }
+
+        return maxYear;
+    }
+}
+*/
