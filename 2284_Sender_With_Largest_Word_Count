@@ -59,3 +59,34 @@ class Solution {
     }
 }
 */
+
+// 12.12.2025
+/*
+class Solution {
+    public String largestWordCount(String[] messages, String[] senders) {
+        Map<String, Integer> count = new HashMap<>();
+
+        for (int i = 0; i < messages.length; i++){
+            String message = messages[i];
+            int num = (int)Arrays.stream(message.split("\\s+")).filter(str -> !str.isEmpty()).count();
+            count.put(senders[i], count.getOrDefault(senders[i], 0) + num);
+        }
+
+        PriorityQueue<String> maxHeap = new PriorityQueue<>(new Comparator<String>(){
+            public int compare(String s1, String s2){
+                int rankS1 = count.get(s1);
+                int rankS2 = count.get(s2);
+
+                return rankS1 == rankS2 ? s2.compareTo(s1) : Integer.compare(rankS2, rankS1);
+            }
+        });
+
+        for (String sender : senders){
+            maxHeap.add(sender);
+        }
+
+        return maxHeap.remove();
+    }
+}
+
+*/
