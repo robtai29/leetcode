@@ -2,8 +2,29 @@
 7.9.22, 12.12.25
 https://leetcode.com/problems/sender-with-largest-word-count/
 **************************************************************/
+// 12.12.25
+class Solution {
+    public String largestWordCount(String[] messages, String[] senders) {
+        int largestCount = 0;
+        String resultSender = "";
+        Map<String, Integer> map = new HashMap<>();
 
+        for (int i = 0; i < messages.length; i++) {
+            int messageWordCount = messages[i].split(" ").length;
+            int currentTotal = map.merge(senders[i], messageWordCount, Integer::sum);
 
+            if (currentTotal > largestCount || 
+               (currentTotal == largestCount && senders[i].compareTo(resultSender) > 0)) {
+                largestCount = currentTotal;
+                resultSender = senders[i];
+            }
+        }
+        return resultSender;
+    }
+}
+
+// 7.9.22
+/* 
 class Solution {
 public String largestWordCount(String[] messages, String[] senders) {
 HashMap<String, Integer> map = new HashMap<>();
@@ -31,7 +52,7 @@ HashMap<String, Integer> map = new HashMap<>();
     }
 
 }
-
+*/
 
  // 11.12.2025
 /*
