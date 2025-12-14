@@ -1,5 +1,5 @@
 /***********************************************************************
-2.9.2025
+2.9.2025, 11.14.2025
 https://leetcode.com/problems/find-the-kth-largest-integer-in-the-array/
 ************************************************************************/
 
@@ -61,3 +61,62 @@ class Solution {
     }
 }
  */
+
+// 11.14.2025
+ /*
+ import java.util.Random;
+
+class Solution {
+    public String kthLargestNumber(String[] nums, int k) {
+        return quickSelect(nums, nums.length-k, 0, nums.length-1, new Random());
+    }
+
+    private String quickSelect(String[] nums, int kSmallest, int left, int right, Random random){
+        if (left == right){
+            return nums[kSmallest];
+        }
+
+        int pivotIndex = left + random.nextInt(right - left + 1);
+        int newPivotIndex = partition(nums, pivotIndex, left, right, random);
+
+        if (newPivotIndex == kSmallest){
+            return nums[newPivotIndex];
+        }else if (newPivotIndex < kSmallest){
+            return quickSelect(nums, kSmallest, newPivotIndex+1, right, random);
+        }else {
+            return quickSelect(nums, kSmallest, left, newPivotIndex -1, random);
+        }
+    }
+
+    private int partition(String[] nums, int pivotIndex, int left, int right, Random random){
+        String pivotValue = nums[pivotIndex];
+        swap(nums, pivotIndex, right);
+
+        int storeIndex = left;
+        for (int i = left; i < right; i++){
+            if (compare(nums[i], pivotValue) < 0){
+                swap(nums, i, storeIndex);
+                storeIndex++;
+            }
+        }
+
+        swap(nums, storeIndex, right);
+        return storeIndex;
+    }
+
+    private void swap(String[] nums, int a, int b){
+        String temp = nums[a];
+        nums[a] = nums[b];
+        nums[b] = temp;
+    }
+
+    private int compare(String a, String b){
+        if (a.length() == b.length()){
+            return a.compareTo(b);
+        }
+
+        return Integer.compare(a.length(), b.length());
+    }
+
+}
+*/
