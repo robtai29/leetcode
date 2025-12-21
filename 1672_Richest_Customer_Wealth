@@ -9,3 +9,11 @@ class Solution {
         return Arrays.stream(accounts).mapToInt(account -> Arrays.stream(account).sum()).max().getAsInt();
     }
 }
+
+/*
+class Solution {
+    public int maximumWealth(int[][] accounts) {
+        return Arrays.stream(accounts).mapToInt(account -> Arrays.stream(account).reduce(0, (a, b) -> a + b)).max().getAsInt();
+    }
+}
+*/

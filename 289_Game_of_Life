@@ -1,39 +1,51 @@
 /*************************************************************
-12.28.24
+12.28.24, 12.20.25
 https://leetcode.com/problems/game-of-life/
 **************************************************************/
 
+
+ /**************************************************************
+ * Binary | Decimal | Meaning
+ * --------------------------------------------------
+ * 00     | 0       | is Dead (0), will stay Dead (0)
+ * 01     | 1       | is Alive (1), will become Dead (0)
+ * 10     | 2       | is Dead (0), will become Alive (1)
+ * 11     | 3       | is Alive (1), will stay Alive (1)
+ * --------------------------------------------------
+ **************************************************************/
 class Solution {
     public void gameOfLife(int[][] board) {
-        for (int i = 0; i < board.length; i++){
-            for (int j = 0; j < board[0].length; j++){
-                int lives = getLivingNeighbors(board, i, j);
-                if (board[i][j] == 1 && lives > 1 && lives < 4){
-                    board[i][j] = 3;
-                }else if (board[i][j] == 0 && lives == 3){
-                    board[i][j] = 2;
+        for (int row = 0; row < board.length; row++){
+            for (int col = 0; col < board[0].length; col++){
+                int livingNeighbors = getLivingNeighbors(board, row, col);
+
+                if (board[row][col] == 1 && (livingNeighbors == 2 || livingNeighbors == 3)){
+                    board[row][col] = 3;
+                }
+                if (board[row][col] == 0 && livingNeighbors == 3){
+                    board[row][col] = 2;
                 }
             }
         }
 
-        for (int i = 0; i < board.length; i++){
-            for (int j = 0; j < board[0].length; j++){
-                board[i][j] = board[i][j] >> 1;
+        for (int row = 0; row < board.length; row++){
+            for (int col = 0; col < board[0].length; col++){
+                board[row][col]= board[row][col] >> 1;
             }
         }
     }
 
     private int getLivingNeighbors(int[][] board, int x, int y){
-        int lives = 0;
-        int[][] dirs = new int[][]{{1,0}, {-1,0}, {1,1}, {-1,-1}, {0,1}, {0,-1}, {1,-1}, {-1,1}};
-        for (int i = 0; i < dirs.length; i++){
-            int currentX = dirs[i][0] + x;
-            int currentY = dirs[i][1] + y;
-            if (currentX >= 0 && currentX < board.length && currentY >= 0 && currentY < board[0].length 
-            && ((board[currentX][currentY]) & 1) == 1){
-                lives++;
+        int livingNeighbors = 0;
+        int[][] dirs = new int[][]{{-1,0}, {1,0}, {0,1}, {0,-1}, {-1,-1}, {1,1}, {-1,1}, {1,-1}};
+        for (int[] dir : dirs){
+            int newX = x + dir[0];
+            int newY = y + dir[1];
+
+            if (newX >= 0 && newX < board.length && newY >= 0 && newY < board[0].length && (board[newX][newY] & 1) == 1){
+                livingNeighbors++;
             }
         }
-        return lives;
+        return livingNeighbors;
     }
 }
