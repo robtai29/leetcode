@@ -1,5 +1,5 @@
 /*************************************************************
-1.27.25
+1.27.25, 12.21.25
 https://leetcode.com/problems/convert-an-array-into-a-2d-array-with-conditions/
 **************************************************************/
 
@@ -57,3 +57,38 @@ class Solution {
     }
 }
  */
+
+// 12.21.25
+/*
+class Solution {
+    public List<List<Integer>> findMatrix(int[] nums) {
+        Map<Integer, Integer> freqMap = new HashMap<>();
+        for (int num : nums){
+            freqMap.put(num, freqMap.getOrDefault(num,0)+1);
+        }
+
+        int size = 0;
+        List<List<Integer>> res = new LinkedList<>();
+
+        while (size < nums.length){
+            List<Integer> row = new LinkedList<>();
+            for (Map.Entry<Integer, Integer> entry : freqMap.entrySet()){
+                int key = entry.getKey();
+                int value = entry.getValue();
+
+                if (value == 0){
+                    continue;
+                }
+
+                row.add(key);
+                size++;
+                freqMap.put(key, value-1);
+            }
+            res.add(row);
+
+        }
+
+        return res;
+    }
+}
+*/
