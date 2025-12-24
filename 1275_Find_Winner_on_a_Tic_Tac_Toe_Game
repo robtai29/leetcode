@@ -1,0 +1,31 @@
+/*************************************************************
+12.24.25
+https://leetcode.com/problems/find-winner-on-a-tic-tac-toe-game/
+**************************************************************/
+
+class Solution {
+    public String tictactoe(int[][] moves) {
+        Map<String, Integer> record = new HashMap<>();
+        
+        for (int i = 0; i < moves.length; i++) {
+            int row = moves[i][0];
+            int col = moves[i][1];
+            int val = (i % 2 == 0) ? 1 : -1;
+
+            record.merge("row" + row, val, Integer::sum);
+            record.merge("col" + col, val, Integer::sum);
+            if (row == col) record.merge("dia", val, Integer::sum);
+            if (row + col == 2) record.merge("anti", val, Integer::sum);
+
+            if (Math.abs(record.getOrDefault("row" + row, 0)) == 3 ||
+                Math.abs(record.getOrDefault("col" + col, 0)) == 3 ||
+                Math.abs(record.getOrDefault("dia", 0)) == 3 ||
+                Math.abs(record.getOrDefault("anti", 0)) == 3) {
+                return val == 1 ? "A" : "B";
+            }
+        }
+
+        // If no winner, determine if it's a Draw or Pending
+        return moves.length == 9 ? "Draw" : "Pending";
+    }
+}
