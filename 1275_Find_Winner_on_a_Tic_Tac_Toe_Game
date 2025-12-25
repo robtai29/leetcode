@@ -5,27 +5,70 @@ https://leetcode.com/problems/find-winner-on-a-tic-tac-toe-game/
 
 class Solution {
     public String tictactoe(int[][] moves) {
-        Map<String, Integer> record = new HashMap<>();
-        
-        for (int i = 0; i < moves.length; i++) {
-            int row = moves[i][0];
-            int col = moves[i][1];
-            int val = (i % 2 == 0) ? 1 : -1;
+        Map<String, Integer> map = new HashMap<>();
 
-            record.merge("row" + row, val, Integer::sum);
-            record.merge("col" + col, val, Integer::sum);
-            if (row == col) record.merge("dia", val, Integer::sum);
-            if (row + col == 2) record.merge("anti", val, Integer::sum);
+        for (int i = 0; i < moves.length; i++){
+            int[] move = moves[i];
+            int row = move[0];
+            int col = move[1];
 
-            if (Math.abs(record.getOrDefault("row" + row, 0)) == 3 ||
-                Math.abs(record.getOrDefault("col" + col, 0)) == 3 ||
-                Math.abs(record.getOrDefault("dia", 0)) == 3 ||
-                Math.abs(record.getOrDefault("anti", 0)) == 3) {
-                return val == 1 ? "A" : "B";
+            int num = i % 2 == 0 ? 1 : -1;
+            map.merge("row"+row, num, Integer::sum);
+            map.merge("col"+col, num, Integer::sum);
+            if (row == col){
+                map.merge("dia", num, Integer::sum);
+            }
+            if (row + col == 2){
+                map.merge("anti", num, Integer::sum);
             }
         }
 
-        // If no winner, determine if it's a Draw or Pending
+        for (String key : map.keySet()){
+            int sum = map.get(key);
+            if (Math.abs(sum) == 3){
+                return sum == 3 ? "A" : "B";
+            }
+        }
+
         return moves.length == 9 ? "Draw" : "Pending";
     }
 }
+
+// 12.24.2025
+/*
+import java.util.HashMap;
+import java.util.Map;
+
+class Solution {
+    public String tictactoe(int[][] moves) {
+        int n = moves.length;
+        // Start from the very last move made (index n-1)
+        // Only the player who made the last move could have won.
+        for (int playerIndex = n - 1; playerIndex >= n - 2 && playerIndex >= 0; playerIndex--) {
+            Map<String, Integer> record = new HashMap<>();
+            
+            // Check only this specific player's moves by skipping one at a time
+            for (int i = playerIndex; i >= 0; i -= 2) {
+                int row = moves[i][0];
+                int col = moves[i][1];
+                
+                // Track counts for this player only
+                record.merge("r" + row, 1, Integer::sum);
+                record.merge("c" + col, 1, Integer::sum);
+                if (row == col) record.merge("dia", 1, Integer::sum);
+                if (row + col == 2) record.merge("anti", 1, Integer::sum);
+            }
+            
+            // Check if any line reached 3 for this player
+            for (int val : record.values()) {
+                if (val == 3) return (playerIndex % 2 == 0) ? "A" : "B";
+            }
+        }
+
+        // If no winner found, check game status
+        return n == 9 ? "Draw" : "Pending";
+    }
+}
+
+
+*/
