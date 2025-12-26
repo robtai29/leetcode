@@ -1,5 +1,5 @@
 /*
- *  12.14.24
+ *  12.14.24, 12.25.25
  *  https://leetcode.com/problems/sort-the-people/
  */
 
@@ -27,3 +27,17 @@ class Solution {
         return res;
     }
 }
+
+
+/*
+class Solution {
+    public String[] sortPeople(String[] names, int[] heights) {
+        return IntStream.range(0, names.length) 
+            .boxed()                             
+            .sorted((i, j) -> Integer.compare(heights[j], heights[i])) 
+            .map(i -> names[i])                  
+            .toArray(String[]::new);             
+    }
+}
+
+*/
