@@ -1,5 +1,5 @@
 /*************************************************************
-1.18.25
+1.18.25, 12.27.25
 https://leetcode.com/problems/string-to-integer-atoi/
 **************************************************************/
 
@@ -26,6 +26,7 @@ class Solution {
         int num = 0;
         for (; i < arr.length && Character.isDigit(arr[i]); i++){
             int digit = arr[i] - '0';
+            //In Java, a standard int can only hold values from -2,147,483,648 to 2,147,483,647.
             if (num > (Integer.MAX_VALUE/10) || (num == (Integer.MAX_VALUE/10) && digit > 7)){
                 return sign == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
             }
