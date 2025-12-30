@@ -1,5 +1,5 @@
 /*************************************************************
-1.12.25
+1.12.25, 12.30.25
 https://leetcode.com/problems/sorting-the-sentence/
 *************************************************************/
 
@@ -21,3 +21,20 @@ class Solution {
         return String.join(" ", arr);
     }
 }
+
+// 12.30.25
+/*
+class Solution {
+    public String sortSentence(String s) {
+        String[] tokens = s.split(" ");
+        String[] res = new String[tokens.length];
+
+        for (String token : tokens){
+            int index = (token.charAt(token.length()-1) - '0') -1;
+            res[index] = token.substring(0, token.length()-1);
+        }
+
+        return String.join(" ", res);
+    }
+}
+*/
