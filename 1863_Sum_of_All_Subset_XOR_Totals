@@ -1,0 +1,32 @@
+/*************************************************************
+1.12.25
+https://leetcode.com/problems/sorting-the-sentence/
+*************************************************************/
+
+class Solution {
+    public int subsetXORSum(int[] nums) {
+        return dfs(nums, 0, 0);
+    }
+/*
+Visualization for nums = [1, 3]
+           (idx:0, XOR:0)
+         /              \
+    INCLUDE 1        EXCLUDE 1
+       /                  \
+ (idx:1, XOR:1)      (idx:1, XOR:0)
+    /      \            /      \
+ INCLUDE 3 EXCLUDE 3  INCLUDE 3 EXCLUDE 3
+  /          \          /          \
+(XOR:2)    (XOR:1)    (XOR:3)    (XOR:0)
+*/
+    private int dfs(int[] nums, int index, int currentXor) {
+        if (index == nums.length) {
+            return currentXor;
+        }
+
+        int include = dfs(nums, index + 1, currentXor ^ nums[index]);
+
+        int exclude = dfs(nums, index + 1, currentXor);
+        return include + exclude;
+    }
+}
