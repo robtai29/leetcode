@@ -1,8 +1,7 @@
 /*************************************************************
-9.29.22
+9.29.22, 12.30.25
 https://leetcode.com/problems/check-if-numbers-are-ascending-in-a-sentence/
 **************************************************************/
-
 
 class Solution {
     public boolean areNumbersAscending(String s) {
@@ -67,3 +66,39 @@ class Solution {
     }
 }
  */
+
+// 12.30.25
+/*
+class Solution {
+    public boolean areNumbersAscending(String s) {
+        String[] tokens = s.split(" ");
+
+        int current = -1;
+        for (String token : tokens){
+            int parsedNum = parseNum(token);
+            if (parsedNum != -1){
+                if (parsedNum <= current){
+                    return false;
+                }
+
+                current = parsedNum;
+            }
+        }
+
+        return true;
+    }
+
+    private int parseNum(String s){
+        char[] arr = s.toCharArray();
+
+        for (char ch : arr){
+            if (!Character.isDigit(ch)){
+                return -1;
+            }
+        }
+
+        return Integer.valueOf(s);
+    }
+}
+
+*/
