@@ -1,0 +1,35 @@
+/*************************************************************
+12.31.25
+https://leetcode.com/problems/student-attendance-record-i/
+**************************************************************/
+
+class Solution {
+    public boolean checkRecord(String s) {
+        int absence = 0;
+        boolean lateThreeDayConsecutive = false;
+
+        char[] arr = s.toCharArray();
+
+        for (int i = 0; i < arr.length; i++){
+            if (arr[i] == 'A'){
+                absence++;
+            }
+
+            if (arr[i] == 'L' && i >= 2 && arr[i-1] == 'L' && arr[i-2] == 'L'){
+                lateThreeDayConsecutive = true;
+            }
+
+        }
+
+        return absence < 2 && !lateThreeDayConsecutive;
+    }
+}
+
+// 12.31.25
+/*
+class Solution {
+    public boolean checkRecord(String s) {
+        return !s.matches(".*A.*A.*|.*LLL.*");
+    }
+}
+*/
