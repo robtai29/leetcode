@@ -1,0 +1,47 @@
+/*************************************************************
+12.13.24
+https://leetcode.com/problems/rank-transform-of-an-array/
+**************************************************************/
+
+class Solution {
+    public List<Integer> filterRestaurants(int[][] restaurants, int veganFriendly, int maxPrice, int maxDistance) {
+        return Arrays.stream(restaurants)
+            .filter(r -> r[2] >= veganFriendly && r[3] <= maxPrice && r[4] <= maxDistance)
+            .sorted(Solution::compareRestaurants) // Separated logic
+            .map(r -> r[0])
+            .toList();
+    }
+
+    // Separated comparison function
+    private static int compareRestaurants(int[] a, int[] b) {
+        if (a[1] != b[1]) {
+            return b[1] - a[1]; // Primary: Rating (Descending)
+        }
+        return b[0] - a[0];     // Secondary: ID (Descending)
+    }
+}
+
+
+/*
+import java.util.*;
+import java.util.stream.*;
+
+class Solution {
+    public List<Integer> filterRestaurants(int[][] restaurants, int veganFriendly, int maxPrice, int maxDistance) {
+        return Arrays.stream(restaurants)
+            // Fix: Use >= to allow all restaurants when veganFriendly filter is 0
+            .filter(arr -> arr[2] >= veganFriendly) 
+            .filter(arr -> arr[3] <= maxPrice) 
+            .filter(arr -> arr[4] <= maxDistance)
+            .sorted((a, b) -> {
+                if (a[1] == b[1]) {
+                    return b[0] - a[0]; // ID descending
+                }
+                return b[1] - a[1];     // Rating descending
+            })
+            .map(arr -> arr[0])         // Correctly mapping to ID
+            .collect(Collectors.toList());
+    }
+}
+
+*/
