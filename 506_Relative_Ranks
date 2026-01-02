@@ -1,5 +1,5 @@
 /*************************************************************
-12.30.24
+12.30.24, 1.1.26
 https://leetcode.com/problems/relative-ranks/
 **************************************************************/
 
@@ -91,3 +91,39 @@ class Solution {
     }
 }
   */
+
+
+// 1.1.26
+/*
+class Solution {
+    public String[] findRelativeRanks(int[] scores) {
+        Map<Integer, String> map = new TreeMap<>(Collections.reverseOrder());
+
+        for (int score : scores){
+            map.put(score, "");
+        }
+
+        int place = 1;
+        for (Integer key : map.keySet()){
+            String rank = "";
+            if (place == 1){
+                rank = "Gold Medal";
+            }else if (place == 2){
+                rank = "Silver Medal";
+            }else if (place == 3){
+                rank = "Bronze Medal";
+            }else{
+                rank = String.valueOf(place);
+            }
+            map.put(key, rank);
+            place++;
+        }
+
+        return Arrays.stream(scores)
+                     .mapToObj(map::get)
+                     .toArray(String[]::new);
+        
+    }
+}
+
+*/
