@@ -1,0 +1,19 @@
+/*************************************************************
+1.2.26
+https://leetcode.com/problems/rearrange-words-in-a-sentence/
+**************************************************************/
+
+//Note: For object arrays (non-primitives), Arrays.sort() is stable. It uses a Timsort algorithm 
+
+class Solution {
+    public String arrangeWords(String text) {
+        String[] tokens = text.toLowerCase().trim().split(" ");
+        Arrays.sort(tokens, new Comparator<String>(){
+            public int compare(String s1, String s2){
+                return Integer.compare(s1.length(), s2.length());
+            }
+        });
+        String str = String.join(" ", tokens);
+        return Character.toUpperCase(str.charAt(0)) + str.substring(1);
+    }
+}
