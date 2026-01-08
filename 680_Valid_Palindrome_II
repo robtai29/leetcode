@@ -1,7 +1,37 @@
 /*
- *  12.4.24
+ *  12.4.24, 1.7.26
  *  https://leetcode.com/problems/valid-palindrome-ii/
  */
+
+class Solution {
+    public boolean validPalindrome(String s) {
+        char[] arr = s.toCharArray();
+        return isValidPalindrome(arr, 0, arr.length-1, false);
+    }
+
+    private boolean isValidPalindrome(char[] arr, int left, int right, boolean flag){
+        while (left < right){
+            char leftChar = arr[left];
+            char rightChar = arr[right];
+            if (leftChar != rightChar){
+                if (!flag){
+                    return isValidPalindrome(arr, left+1, right, true) || 
+                           isValidPalindrome(arr, left, right-1, true); 
+                }
+
+                return false;
+            }
+
+            left++;
+            right--;
+        }
+
+        return true;
+    }
+}
+
+// 12.4.24
+/*
 class Solution {
     public boolean validPalindrome(String s) {
         int left = 0, right = s.length() -1;
@@ -29,3 +59,4 @@ class Solution {
         return true;
     }
 }
+*/
