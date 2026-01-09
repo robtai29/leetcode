@@ -1,0 +1,30 @@
+/*************************************************************
+1.8.26
+https://leetcode.com/problems/reverse-words-with-same-vowel-count/
+**************************************************************/
+
+class Solution {
+    public String reverseWords(String s) {
+        if (s == null || s.isEmpty()){
+            return "";
+        }
+
+        String[] arr = s.split(" ");
+        if (arr.length == 0){
+            return "";
+        }
+        int targetCount = getVowelCount(arr[0]);
+        
+        return IntStream.range(0, arr.length).mapToObj(i -> {
+            if (i > 0 && getVowelCount(arr[i]) == targetCount){
+                return new StringBuilder(arr[i]).reverse().toString(); 
+            }
+
+            return arr[i];
+        }).collect(Collectors.joining(" "));
+    }
+
+    private int getVowelCount(String str){
+        return (int)str.chars().filter(ch -> "aeiou".indexOf(ch) != -1).count();
+    }
+}
