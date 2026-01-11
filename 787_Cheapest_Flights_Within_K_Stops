@@ -1,55 +1,51 @@
 /*************************************************************
-11.28.25
+11.28.25, 1.10.26
 https://leetcode.com/problems/cheapest-flights-within-k-stops
 **************************************************************/
 
 class Solution {
     public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
-        Map<Integer, Map<Integer, Integer>> distanceMap = new HashMap<>();
+        Map<Integer, Map<Integer, Integer>> adjList = new HashMap<>();
         for (int[] flight : flights){
-            distanceMap.putIfAbsent(flight[0], new HashMap<>());
-            distanceMap.get(flight[0]).put(flight[1], flight[2]);
+            adjList.computeIfAbsent(flight[0], HashMap::new).put(flight[1], flight[2]);
         }
 
-        // PriorityQueue stores int[]{city, cost, stops}, ordered by cost
-        PriorityQueue<int[]> pq = new PriorityQueue<>(new Comparator<int[]>(){
-            public int compare(int[] a, int[] b){
-                return Integer.compare(a[1], b[1]);
-            }
-        });
-
-        // Track minimum stops to reach each city with the current best cost
         int[] minStops = new int[n];
         Arrays.fill(minStops, Integer.MAX_VALUE);
 
-        pq.add(new int[]{src, 0, 0}); // Start with src, cost 0, stops 0
+        Queue<int[]> pq = new PriorityQueue<>(new Comparator<int[]>(){
+            public int compare(int[] a, int[] b){
+                return Integer.compare(a[0], b[0]);
+            }
+        });
 
-        while(!pq.isEmpty()){
-            int[] entry = pq.remove();
-            int currentNode = entry[0];
-            int currentCost = entry[1];
-            int currentStops = entry[2];
+        // cost, city, stop
+        pq.add(new int[]{0, src, -1});
 
-            if (currentNode == dst) {
+        while (!pq.isEmpty()){
+            int[] edge = pq.remove();
+            int currentCost = edge[0];
+            int currentCity = edge[1];
+            int currentStops = edge[2];
+
+            if (currentCity == dst){
                 return currentCost;
             }
-            
-            if (currentStops > k) {
+            if (currentStops >= k){
                 continue;
             }
-            
-            if (currentStops >= minStops[currentNode]) {
+            if (currentStops >= minStops[currentCity]){
                 continue;
             }
-            minStops[currentNode] = currentStops;
+            minStops[currentCity] = currentStops;
 
-            if (distanceMap.containsKey(currentNode)){
-                for (int nextNode : distanceMap.get(currentNode).keySet()){
-                    int price = distanceMap.get(currentNode).get(nextNode);
-                    pq.add(new int[]{nextNode, currentCost + price, currentStops + 1});
+            if (adjList.containsKey(currentCity)){
+                for (int nextCity : adjList.get(currentCity).keySet()){
+                    int price = adjList.get(currentCity).get(nextCity);
+                    pq.add(new int[]{currentCost + price, nextCity, currentStops + 1});
                 }
             }
         }
-            return -1;
+        return -1;
     }
 }
