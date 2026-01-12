@@ -1,5 +1,5 @@
 /*************************************************************
-11.27.25
+11.27.25, 1.11.26
 https://leetcode.com/problems/network-delay-time/
 **************************************************************/
 
@@ -8,8 +8,7 @@ class Solution {
     public int networkDelayTime(int[][] times, int n, int k) {
         Map<Integer, Map<Integer, Integer>> distanceMap = new HashMap<>();
         for (int[] time : times){
-            distanceMap.putIfAbsent(time[0], new HashMap<>());
-            distanceMap.get(time[0]).put(time[1], time[2]);
+            distanceMap.computeIfAbsent(time[0], HashMap::new).put(time[1], time[2]);
         }
 
         PriorityQueue<int[]> pq = new PriorityQueue<>(new Comparator<int[]>(){
