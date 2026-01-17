@@ -2,7 +2,7 @@
 1.13.26
 https://leetcode.com/problems/excel-sheet-column-number/
 ***************************************************************/
-
+// This is essentially a base-26 number system conversion with a twist - instead of digits 0-25, we use letters A-Z (representing 1-26)
 class Solution {
     public int titleToNumber(String columnTitle) {
         char[] arr = columnTitle.toCharArray();

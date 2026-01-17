@@ -1,8 +1,70 @@
 /*************************************************************
-12.16.24
+12.16.24, 1.16.25
 https://leetcode.com/problems/summary-ranges/
 **************************************************************/
 
+// 1.16.25
+class Solution {
+    public List<String> summaryRanges(int[] nums) {
+        List<String> res = new LinkedList<>();
+        if (nums.length == 0){
+            return res;
+        }
+
+        for (int i = 0; i < nums.length; i++){
+            int startNum = nums[i];
+            while (i + 1 < nums.length && nums[i] + 1 == nums[i+1]){
+                i++;
+            }
+
+            res.add(generateRange(startNum, nums[i]));
+        }
+
+        return res;
+    }
+
+    private String generateRange(int a, int b){
+        if (a == b){
+            return String.valueOf(a);
+        }
+
+        return a + "->" + b;
+    }
+}
+
+// 1.16.25
+/*
+class Solution {
+    public List<String> summaryRanges(int[] nums) {
+        List<String> res = new LinkedList<>();
+        if (nums.length == 0){
+            return res;
+        }
+
+        int start = 0;
+        for (int i = 0; i < nums.length; i++){
+            if (i == nums.length-1 || nums[i] + 1 != nums[i+1]){
+                res.add(generateRange(nums[start], nums[i]));
+                start = i+1;
+            }
+
+        }
+
+        return res;
+    }
+
+    private String generateRange(int a, int b){
+        if (a == b){
+            return String.valueOf(a);
+        }
+
+        return a + "->" + b;
+    }
+}
+*/
+
+// 12.16.24
+/*
 class Solution {
     public List<String> summaryRanges(int[] nums) {
         List<String> res = new LinkedList<>();
@@ -29,3 +91,4 @@ class Solution {
         return res;
     }
 }
+*/
