@@ -1,0 +1,36 @@
+/***************************************************************
+1.17.25
+https://leetcode.com/problems/missing-ranges/description/
+****************************************************************/
+
+class Solution {
+    public List<String> findMissingRanges(int[] nums, int lower, int upper) {
+        List<String> missingRanges = new ArrayList<>();
+        // Use a long to track the "next expected number" in the sequence
+        // This prevents overflow when lower is Integer.MIN_VALUE or when adding 1
+        long next = lower;
+
+        for (int num : nums) {
+            // If the current number is greater than what we expected,
+            // there is a missing range between 'next' and 'num - 1'
+            if (num > next) {
+                missingRanges.add(formatRange((int)next, num - 1));
+            }
+            
+            // Move 'next' to the number following the current one
+            // Using long prevents overflow if num is Integer.MAX_VALUE
+            next = (long)num + 1;
+        }
+
+        // After the loop, check if there is a remaining range up to 'upper'
+        if (next <= upper) {
+            missingRanges.add(formatRange((int)next, upper));
+        }
+
+        return missingRanges;
+    }
+
+    private String formatRange(int start, int end) {
+        return (start == end) ? String.valueOf(start) : start + "->" + end;
+    }
+}
