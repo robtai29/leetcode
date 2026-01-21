@@ -1,7 +1,27 @@
 /*
- * 11.29.23
+ * 11.29.23. 1.21.26
  * https://leetcode.com/problems/unique-email-addresses/
  */
+
+class Solution {
+    public int numUniqueEmails(String[] emails) {
+        Set<String> set = new HashSet<>();
+        for (String email : emails){
+            String[] str = email.split("@");
+            String localName = str[0].split("\\+")[0].replace(".", "");
+            String domainName = str[1];
+            System.out.println(localName + '@' + domainName);
+            set.add(localName + '@' + domainName);
+        }
+
+        return set.size();
+    }
+}
+
+
+
+//11.29.23
+/*
 class Solution {
     public int numUniqueEmails(String[] emails) {
         Set<String> set = new HashSet<>();
@@ -22,3 +42,4 @@ class Solution {
         return localName + domainName;
     }
 }
+*/
