@@ -1,0 +1,27 @@
+/*************************************************************
+1.2.26
+https://leetcode.com/problems/valid-mountain-array/
+**************************************************************/
+
+class Solution {
+    public boolean validMountainArray(int[] arr) {
+        if (arr == null || arr.length < 3){
+            return false;
+        }
+
+        int index = 0;
+        while (index +1 < arr.length && arr[index+1] > arr[index]){
+            index++;
+        }
+
+        if (index == 0 || index == arr.length-1){
+            return false;
+        }
+
+        while (index +1 < arr.length && arr[index+1] < arr[index]){
+            index++;
+        }
+
+        return index == arr.length-1;
+    }
+}
