@@ -1,33 +1,37 @@
 /*************************************************************
-9.29.22, 1.25.26
+9.29.22, 1.26.26
 https://leetcode.com/problems/backspace-string-compare/f
 **************************************************************/
+
 class Solution {
     public boolean backspaceCompare(String s, String t) {
-        int sIndex = s.length() - 1, tIndex = t.length() - 1;
-        int skipS = 0, skipT = 0;
+        char[] sArray = s.toCharArray();
+        char[] tArray = t.toCharArray();
 
-        while (sIndex >= 0 || tIndex >= 0) {
-            
+        int sIndex = sArray.length-1;
+        int tIndex = tArray.length-1;
 
-            if (sIndex >= 0 && (s.charAt(sIndex) == '#' || skipS > 0)) {
-                if (s.charAt(sIndex) == '#') skipS++;
-                else skipS--;
+        int sSkips = 0, tSkips = 0;
+
+        while (sIndex >= 0 || tIndex >= 0){
+            while (sIndex >= 0 && (sSkips > 0 || sArray[sIndex] == '#')){
+                sSkips = (sArray[sIndex] == '#') ? sSkips+1 : sSkips - 1;  
                 sIndex--;
-                continue; 
             }
 
-            if (tIndex >= 0 && (t.charAt(tIndex) == '#' || skipT > 0)) {
-                if (t.charAt(tIndex) == '#') skipT++;
-                else skipT--;
+            while (tIndex >= 0 && (tSkips > 0 || tArray[tIndex]  == '#')){
+                tSkips = (tArray[tIndex] == '#') ? tSkips+1 : tSkips - 1;  
                 tIndex--;
-                continue; 
             }
 
+            if (sIndex >= 0 != tIndex >= 0){
+                return false;
+            }
 
-            if (sIndex >= 0 != tIndex >= 0) return false;
+            char tCh = tIndex == -1 ? '@' : tArray[tIndex];
+            char sCh = sIndex == -1 ? '@' : sArray[sIndex];
 
-            if (sIndex >= 0 && tIndex >= 0 && s.charAt(sIndex) != t.charAt(tIndex)) {
+            if (tCh != sCh){
                 return false;
             }
 
@@ -36,10 +40,52 @@ class Solution {
         }
 
         return true;
+
     }
 }
 
+/*
+class Solution {
+    public boolean backspaceCompare(String s, String t) {
+        char[] sArray = s.toCharArray();
+        char[] tArray = t.toCharArray();
 
+        int sIndex = sArray.length-1;
+        int tIndex = tArray.length-1;
+
+        int sSkips = 0, tSkips = 0;
+
+        while (sIndex >= 0 || tIndex >= 0){
+            if (sIndex >= 0 && (sSkips > 0 || sArray[sIndex] == '#')){
+                sSkips = (sArray[sIndex] == '#') ? sSkips+1 : sSkips - 1;  
+                sIndex--;
+                continue;
+            }
+
+            if (tIndex >= 0 && (tSkips > 0 || tArray[tIndex]  == '#')){
+                tSkips = (tArray[tIndex] == '#') ? tSkips+1 : tSkips - 1;  
+                tIndex--;
+                continue;
+            }
+
+            //if one of the array is exhausted, and another one is not, then it is not the same
+            if (sIndex >= 0 != tIndex >= 0){
+                return false;
+            }
+
+            if (tArray[tIndex] != sArray[sIndex]){
+                return false;
+            }
+
+            sIndex--;
+            tIndex--;
+        }
+
+        return true;
+
+    }
+}
+*/
 /*
 class Solution {
     public boolean backspaceCompare(String s, String t) {
