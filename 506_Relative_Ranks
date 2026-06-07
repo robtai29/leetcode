@@ -1,8 +1,30 @@
 /*************************************************************
-12.30.24, 1.1.26
+12.30.24, 6.6.26
 https://leetcode.com/problems/relative-ranks/
 **************************************************************/
+  class Solution {
+      public String[] findRelativeRanks(int[] score) {
+          String[] medals = {"Gold Medal", "Silver Medal", "Bronze Medal"};
+          String[] result = new String[score.length];
 
+          int[] sorted = IntStream.range(0, score.length)
+              .boxed()
+              .sorted((a, b) -> score[b] - score[a])
+              .mapToInt(i -> i)
+              .toArray();
+
+          IntStream.range(0, sorted.length).forEach(rank ->
+              result[sorted[rank]] = rank < 3 ? medals[rank] : String.valueOf(rank + 1)
+          );
+
+          return result;
+      }
+  }
+
+
+
+/* 
+1.1.26
 class Solution {
     public String[] findRelativeRanks(int[] score) {
         Map<Integer, String> rankMap = Map.of(1, "Gold Medal", 2, "Silver Medal", 3, "Bronze Medal");
@@ -31,7 +53,7 @@ class Solution {
         return res;
     }
 }
-
+*/
 
 // 12.30.24
 /*

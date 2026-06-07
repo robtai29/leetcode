@@ -16,9 +16,7 @@ class Solution {
 
         prev = len;
         for (int i = len -1; i >= 0;  i--){
-            if (s.charAt(i) == c){
-                prev = 0;
-            }else {
+
                 ans[i] = Math.min(ans[i], ++prev);
             }
         }
