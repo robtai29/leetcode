@@ -1,9 +1,33 @@
     
 /*************************************************************
-9.20.22
+9.20.22, 7.19.26
 https://leetcode.com/problems/word-pattern/
 **************************************************************/
 
+class Solution {
+    public boolean wordPattern(String pattern, String s) {
+        // check for bijection as in one to one relationship
+
+        String[] words = s.split(" ");
+        if (words.length != pattern.length()){
+            return false;
+        }
+
+        Map<String, Integer> map = new HashMap<>();
+
+        for (int i = 0; i < pattern.length(); i++){
+            String ch = "ch_" + pattern.charAt(i);
+            String word = "words_" + words[i];
+            if (!Objects.equals(map.put(ch, i), map.put(word, i))){
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
+
+/* 
 class Solution {
     public boolean wordPattern(String pattern, String s) {
         if (pattern == null || pattern.length() == 0){
@@ -44,3 +68,4 @@ class Solution {
         
     }
 }
+*/
