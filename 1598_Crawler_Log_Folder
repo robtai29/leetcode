@@ -1,18 +1,18 @@
 /*************************************************************
-2.13.25
+2.13.25, 11.5.26
 https://leetcode.com/problems/crawler-log-folder
 **************************************************************/
 class Solution {
     public int minOperations(String[] logs) {
-        int levels = 0;
+        int depth = 0;
         for (String log : logs){
-            if (log.equals("../") && levels > 0){
-                levels--;
+            if (log.equals("../") && depth > 0){
+                depth--;
             }else if (!log.equals("./")){
-                levels++;
+                depth++;
             }
         }
 
-        return levels;
+        return depth;
     }
 }

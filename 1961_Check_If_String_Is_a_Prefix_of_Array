@@ -1,0 +1,21 @@
+/***************************************************************************************
+11.8.26
+https://leetcode.com/problems/check-if-string-is-a-prefix-of-array
+****************************************************************************************/
+
+class Solution {
+    public boolean isPrefixString(String s, String[] words) {
+        int index = 0;
+        for (String word : words) {
+            for (char ch : word.toCharArray()) {
+                if (index == s.length() || ch != s.charAt(index++)) {  //check if s is at end but still in middle of word
+                    return false;   
+                }
+            }
+            if (index == s.length()) { //only check word is completed at the same time as s
+                return true;        
+            }
+        }
+        return false;               
+    }
+}

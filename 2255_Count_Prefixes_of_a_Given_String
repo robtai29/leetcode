@@ -1,0 +1,17 @@
+/*************************************************************
+11.8.2026
+https://leetcode.com/problems/count-prefixes-of-a-given-string/
+**************************************************************/
+class Solution {
+    public int countPrefixes(String[] words, String s) {
+        return (int) Arrays.stream(words)
+                           .filter(word -> s.startsWith(word)) //use method reference: .filter(s::startsWith)
+
+                           .count();
+    }
+}
+
+/*
+can't do words.stream() because List, Set and ArrayList implement Collection, so they all inherit stream(). A String[] doesn't implement Collection.
+*/
+
